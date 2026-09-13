@@ -1,0 +1,2235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BSR AutoMotor System — User Manual &amp; Feature Guide</title>
+<style>
+@page { size: A4; margin: 20mm 16mm 18mm 16mm; }
+@page :first { margin: 0; }
+
+:root{
+  --ink:#10192b; --text:#22304a; --muted:#5d6d86; --line:#dde4ee;
+  --blue:#2f6fed; --blued:#1d4ed8; --aqua:#0d8fa0; --green:#0f8f5c;
+  --amber:#b3740a; --red:#c33a2e; --violet:#6340c8;
+  --band:#f2f6fc;
+}
+
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+body{
+  margin:0; font-family:"Segoe UI",Calibri,Carlito,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  color:var(--text); font-size:10.4pt; line-height:1.55;
+}
+p{margin:0 0 8pt}
+b,strong{color:var(--ink)}
+a{color:var(--blue); text-decoration:none}
+
+/* ---------- cover ---------- */
+.cover{
+  width:210mm; height:297mm; margin:0; padding:30mm 22mm 20mm 22mm;
+  display:flex; flex-direction:column; justify-content:space-between;
+  page-break-after:always; text-align:center;
+  background:linear-gradient(170deg,#0d1728 0,#16283f 46%,#0b1322 100%);
+  color:#fff;
+}
+.cover .mark{
+  width:74px;height:74px;margin:0 auto 16px;border-radius:22px;
+  background:linear-gradient(150deg,#2f6fed,#0d97a8); display:flex; align-items:center; justify-content:center;
+}
+.cover .mark svg{width:40px;height:40px;fill:#fff}
+.cover h1{font-size:37pt;line-height:1.05;margin:0 0 4pt;letter-spacing:-1px;font-weight:800;color:#fff}
+.cover .tag{font-size:15pt;color:#8fb4f5;font-weight:600;margin-bottom:26pt}
+.cover .rule{width:120px;height:3px;background:linear-gradient(90deg,#2f6fed,#0d97a8);margin:0 auto 24pt;border-radius:2px}
+.cover h2{font-size:16pt;font-weight:600;color:#dce6f6;margin:0 0 6pt}
+.cover .lead{font-size:11.5pt;color:#a8b8d0;max-width:132mm;margin:0 auto 8pt;line-height:1.6}
+.cover .who{font-size:10.5pt;color:#8496b2;margin-top:18pt}
+.cover .meta{font-size:9.5pt;color:#7d8ca6;border-top:1px solid #ffffff22;padding-top:12pt}
+.cover .meta b{color:#c8d6ea}
+.cover .chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:150mm;margin:0 auto}
+.cover .chip{font-size:8.6pt;font-weight:600;color:#cfe0fb;border:1px solid #ffffff26;background:#ffffff10;
+  padding:5px 11px;border-radius:999px}
+
+/* ---------- running heads ---------- */
+h1.sec{
+  font-size:19pt; color:var(--ink); font-weight:800; letter-spacing:-.4px;
+  margin:0 0 3pt; padding-bottom:7pt; border-bottom:3px solid var(--blue);
+  page-break-after:avoid;
+}
+h1.sec .num{color:var(--blue)}
+.secintro{font-size:10.2pt;color:var(--muted);margin:8pt 0 14pt;line-height:1.6}
+h2{font-size:13pt;color:var(--ink);font-weight:750;margin:18pt 0 6pt;page-break-after:avoid}
+h2 .n{color:var(--blue);font-weight:800}
+h3{font-size:11pt;color:var(--ink);font-weight:700;margin:13pt 0 5pt;page-break-after:avoid}
+.purpose{
+  font-size:9.8pt;color:#3a4c68;background:var(--band);border-left:3px solid var(--blue);
+  padding:7pt 10pt;margin:0 0 9pt;border-radius:0 6px 6px 0;
+}
+.purpose b{color:var(--blued)}
+
+ul,ol{margin:0 0 9pt; padding-left:16pt}
+li{margin-bottom:4pt}
+li::marker{color:var(--blue)}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;margin:0 0 11pt;font-size:9.4pt;page-break-inside:avoid}
+th{background:var(--ink);color:#fff;text-align:left;padding:6pt 8pt;font-weight:650;font-size:9.2pt}
+th:first-child{border-radius:5px 0 0 0} th:last-child{border-radius:0 5px 0 0}
+td{padding:6pt 8pt;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+tbody tr:nth-child(even){background:#f7fafd}
+td b{color:var(--ink)}
+table.wide{font-size:9pt}
+
+/* ---------- callouts ---------- */
+.note{font-size:9.5pt;padding:8pt 11pt;border-radius:7px;margin:0 0 10pt;line-height:1.5;page-break-inside:avoid}
+.note b{display:inline}
+.tip{background:#eaf6ef;border-left:3px solid var(--green);color:#14573b}
+.info{background:#eef3fd;border-left:3px solid var(--blue);color:#1e3a72}
+.warn{background:#fff6e6;border-left:3px solid var(--amber);color:#7a4f05}
+.block{background:#fdeeec;border-left:3px solid var(--red);color:#8f2b21}
+.new{background:#f1ecfd;border-left:3px solid var(--violet);color:#432b8f}
+
+.badge{display:inline-block;font-size:7.6pt;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+  padding:2px 7px;border-radius:999px;vertical-align:2px;margin-left:6px}
+.badge.nw{background:#ece5fd;color:var(--violet)}
+.badge.up{background:#e3f0ff;color:var(--blued)}
+
+/* ---------- figures ---------- */
+figure{margin:0 0 13pt;page-break-inside:avoid;text-align:center}
+figure img{max-width:100%;border:1px solid #cfd8e6;border-radius:9px;box-shadow:0 3px 9px #10182814}
+figure img.narrow{max-width:70mm}
+figure img.tall{max-width:58mm}
+figure img.mid{max-width:96mm}
+figure img.wide{max-width:132mm}
+figcaption{font-size:8.8pt;color:var(--muted);margin-top:5pt;font-style:italic}
+
+.pagebreak{page-break-before:always}
+.avoid{page-break-inside:avoid}
+
+/* ---------- TOC ---------- */
+.toc h1{font-size:20pt;color:var(--ink);border-bottom:3px solid var(--blue);padding-bottom:7pt;margin-bottom:14pt}
+.toc ol{list-style:none;padding:0;margin:0;font-size:10pt}
+.toc > ol > li{margin:0 0 3pt;padding:4pt 0;border-bottom:1px dotted #d8e0ec}
+.toc .t1{font-weight:700;color:var(--ink)}
+.toc .t1 .num{display:inline-block;width:22pt;color:var(--blue);font-weight:800}
+.toc ul{list-style:none;padding:0 0 0 22pt;margin:3pt 0 0;font-size:9.2pt;color:var(--muted)}
+.toc ul li{margin:0;padding:1.5pt 0}
+.toc ul li .sn{display:inline-block;width:26pt;color:#8a99b0}
+
+/* ---------- misc ---------- */
+.kv{display:flex;flex-wrap:wrap;gap:6pt;margin:0 0 10pt}
+.kv span{font-size:8.8pt;background:#eef2f8;color:#42536e;border-radius:999px;padding:4px 10px;font-weight:600}
+.lead-in{font-size:10.6pt;color:#33455f;line-height:1.6;margin-bottom:12pt}
+.grid2{display:flex;gap:10pt;margin-bottom:11pt}
+.grid2 > div{flex:1}
+.checklist{column-count:2;column-gap:14pt;font-size:9.3pt}
+.checklist li{break-inside:avoid;margin-bottom:3pt}
+.enddash{text-align:center;color:var(--muted);font-size:9pt;margin-top:26pt;padding-top:12pt;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<!-- ======================= COVER ======================= -->
+<section class="cover">
+  <div>
+    <div class="mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2.3s6.7 8 6.7 12.4a6.7 6.7 0 0 1-13.4 0C5.3 10.3 12 2.3 12 2.3z" opacity=".95"/><path fill="#0d1728" d="M13 8.6v3.6h2.7L11 18.4v-3.6H8.3z"/></svg>
+    </div>
+    <h1>BSR AutoMotor</h1>
+    <div class="tag">Smart Home Water Motor Automation</div>
+    <div class="rule"></div>
+    <h2>User Manual &amp; Feature Guide</h2>
+    <p class="lead">The complete guide to installing, operating and getting the most
+      out of your AutoMotor system — including the new built-in web control panel
+      that runs in any phone or laptop browser.</p>
+    <div class="who">For home owners, operators and installation technicians</div>
+  </div>
+
+  <div>
+    <div class="chips">
+      <span class="chip">Municipal Water Auto Start</span>
+      <span class="chip">Tank Auto Fill</span>
+      <span class="chip">Adjustable Tank Levels</span>
+      <span class="chip">5 Daily Schedules</span>
+      <span class="chip">Web Control Panel</span>
+      <span class="chip">Mobile App</span>
+      <span class="chip">Run-Time Statistics</span>
+      <span class="chip">Water Session Log</span>
+      <span class="chip">Remote Firmware Update</span>
+      <span class="chip">One-Tap Rollback</span>
+      <span class="chip">Data Export</span>
+      <span class="chip">Works Without Internet</span>
+    </div>
+  </div>
+
+  <div class="meta">
+    <b>Edition 2</b> &nbsp;·&nbsp; Covers the current production release &nbsp;·&nbsp; September 2026<br>
+    © BSR AutoMotor System — All Rights Reserved
+  </div>
+</section>
+
+<!-- ======================= TOC ======================= -->
+<section class="toc">
+  <h1>Table of Contents</h1>
+  <ol>
+    <li><span class="t1"><span class="num">1.</span>What Is the BSR AutoMotor System?</span>
+      <ul>
+        <li><span class="sn">1.1</span>The problem it solves</li>
+        <li><span class="sn">1.2</span>System components at a glance</li>
+        <li><span class="sn">1.3</span>What is new in this edition</li>
+      </ul></li>
+
+    <li><span class="t1"><span class="num">2.</span>Host Controller — The Brain of the System</span>
+      <ul>
+        <li><span class="sn">2.1</span>Municipal Water Auto Start (AutoFill)</li>
+        <li><span class="sn">2.2</span>Tank Auto Fill — automatic level control</li>
+        <li><span class="sn">2.3</span>Adjustable tank start / stop levels</li>
+        <li><span class="sn">2.4</span>Direct motor control</li>
+        <li><span class="sn">2.5</span>Timer-based motor scheduling</li>
+        <li><span class="sn">2.6</span>Flow sensor &amp; water quantity measurement</li>
+        <li><span class="sn">2.7</span>Adjustable municipal water detection</li>
+        <li><span class="sn">2.8</span>Municipal water session log</li>
+        <li><span class="sn">2.9</span>Motor run-time statistics</li>
+        <li><span class="sn">2.10</span>Last run &amp; next run record</li>
+        <li><span class="sn">2.11</span>Smart buzzer alert system</li>
+        <li><span class="sn">2.12</span>Silencing the tank buzzer from anywhere</li>
+        <li><span class="sn">2.13</span>Built-in real-time clock</li>
+        <li><span class="sn">2.14</span>Internet &amp; cloud connectivity</li>
+        <li><span class="sn">2.15</span>Smart Wi-Fi management</li>
+        <li><span class="sn">2.16</span>Firmware updates — three ways</li>
+        <li><span class="sn">2.17</span>Two firmware copies &amp; one-tap rollback</li>
+        <li><span class="sn">2.18</span>Permanent settings memory</li>
+        <li><span class="sn">2.19</span>Health monitoring &amp; restart history</li>
+        <li><span class="sn">2.20</span>Data export, erase and factory reset</li>
+      </ul></li>
+
+    <li><span class="t1"><span class="num">3.</span>Physical Controls on the Host Unit</span>
+      <ul>
+        <li><span class="sn">3.1</span>Tank mode rocker switch</li>
+        <li><span class="sn">3.2</span>Flow sensor</li>
+        <li><span class="sn">3.3</span>Temperature sensor</li>
+      </ul></li>
+
+    <li><span class="t1"><span class="num">4.</span>Sensor Node — The Tank Level Monitor</span>
+      <ul>
+        <li><span class="sn">4.1</span>Ultrasonic water level sensing</li>
+        <li><span class="sn">4.2</span>Automatic reporting to the Host Controller</li>
+        <li><span class="sn">4.3</span>Local tank buzzer alerts</li>
+        <li><span class="sn">4.4</span>Remote buzzer silence</li>
+        <li><span class="sn">4.5</span>Wi-Fi communication &amp; firmware update</li>
+        <li><span class="sn">4.6</span>Mounting the probe correctly</li>
+      </ul></li>
+
+    <li><span class="t1"><span class="num">5.</span>The Web Control Panel</span>
+      <ul>
+        <li><span class="sn">5.1</span>Opening the panel</li>
+        <li><span class="sn">5.2</span>The motor card</li>
+        <li><span class="sn">5.3</span>Live Status</li>
+        <li><span class="sn">5.4</span>Controls</li>
+        <li><span class="sn">5.5</span>Schedules</li>
+        <li><span class="sn">5.6</span>Remote / IoT mode</li>
+        <li><span class="sn">5.7</span>Firmware — cloud update</li>
+        <li><span class="sn">5.8</span>Firmware — local upload</li>
+        <li><span class="sn">5.9</span>Motor Run Time</li>
+        <li><span class="sn">5.10</span>Last &amp; Next Run</li>
+        <li><span class="sn">5.11</span>Municipal Water — last 10 sessions</li>
+        <li><span class="sn">5.12</span>Reset History</li>
+        <li><span class="sn">5.13</span>Tank Levels</li>
+        <li><span class="sn">5.14</span>Municipal Water Detection</li>
+        <li><span class="sn">5.15</span>Firmware Slots &amp; Rollback</li>
+        <li><span class="sn">5.16</span>Maintenance</li>
+        <li><span class="sn">5.17</span>Diagnostics</li>
+        <li><span class="sn">5.18</span>The tank buzzer alarm banner</li>
+      </ul></li>
+
+    <li><span class="t1"><span class="num">6.</span>Mobile Application</span></li>
+    <li><span class="t1"><span class="num">7.</span>Wi-Fi Extender — Bridging the Distance</span></li>
+
+    <li><span class="t1"><span class="num">8.</span>Which Mode to Use &amp; When</span>
+      <ul>
+        <li><span class="sn">8.1</span>Choosing a mode</li>
+        <li><span class="sn">8.2</span>Mode priority &amp; conflict rules</li>
+        <li><span class="sn">8.3</span>Three worked examples</li>
+      </ul></li>
+
+    <li><span class="t1"><span class="num">9.</span>Alert Reference Guide</span></li>
+    <li><span class="t1"><span class="num">10.</span>Troubleshooting</span></li>
+    <li><span class="t1"><span class="num">11.</span>Complete Feature Checklist</span></li>
+    <li><span class="t1"><span class="num">12.</span>Quick Start — Five Steps</span></li>
+    <li><span class="t1"><span class="num">13.</span>Specifications, Care &amp; Safety</span></li>
+    <li><span class="t1"><span class="num">14.</span>Glossary</span></li>
+  </ol>
+</section>
+
+<!-- ======================= 1 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">1.</span> What Is the BSR AutoMotor System?</h1>
+
+<p class="lead-in">The BSR AutoMotor System is a smart, fully automated home water
+management solution. It exists to take away the daily chore of running your water
+motor by hand. Whether you are at home, at work or travelling, it watches your
+municipal (government / tap) water supply and your overhead or underground tank,
+and runs the pump automatically — exactly when it is needed, and never when it
+is not.</p>
+
+<p>You set it up once, and the system takes care of the rest. It turns the motor
+<b>ON</b> when water is available or the tank is low, and <b>OFF</b> when the tank
+is full or the supply stops. On top of that you can see and control everything from
+your phone — either through the mobile app, or by simply opening the controller's
+own web page in a browser, with no app to install at all.</p>
+
+<h2><span class="n">1.1</span> The Problem It Solves</h2>
+<table>
+  <thead><tr><th style="width:42%">Common problem</th><th>How BSR AutoMotor fixes it</th></tr></thead>
+  <tbody>
+    <tr><td>Forgetting to turn ON the motor when municipal water arrives</td>
+        <td>The system detects water flow on its own and starts the motor within seconds</td></tr>
+    <tr><td>Forgetting to turn OFF the motor — the tank overflows</td>
+        <td>Tank level is monitored continuously; the motor stops the moment the tank is full</td></tr>
+    <tr><td>Motor running dry, or running when the tank is already full</td>
+        <td>Both the supply line <i>and</i> the tank level are checked before the motor is allowed to run</td></tr>
+    <tr><td>Water wasted through overflow</td>
+        <td>Automatic shut-off at the right level prevents overflow completely</td></tr>
+    <tr><td>No way to control the motor when away from home</td>
+        <td>Full remote control from the mobile app, from anywhere in the world</td></tr>
+    <tr><td>No way to know if water has arrived or the tank is full while you sleep</td>
+        <td>Distinct buzzer alerts at the motor <i>and</i> at the tank tell you exactly what happened</td></tr>
+    <tr><td>A fixed routine that cannot be adjusted</td>
+        <td>Up to five programmable schedules, plus thresholds you can tune yourself</td></tr>
+    <tr><td>Power cuts wiping out all settings</td>
+        <td>Every setting lives in permanent memory and is restored automatically</td></tr>
+    <tr><td>No record of how much water you actually received</td>
+        <td>Every supply session is measured in litres and logged, and can be downloaded as a file</td></tr>
+    <tr><td>No idea how long the motor has been running this month</td>
+        <td>Run time is totalled for every day of the last 31 days, split by what started the motor</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">1.2</span> System Components at a Glance</h2>
+<table>
+  <thead><tr><th style="width:22%">Component</th><th style="width:26%">Where it is installed</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><b>Host Controller</b></td><td>Near the motor / electrical panel</td>
+        <td>The brain of the system. Switches the motor, reads the flow sensor, keeps the clock,
+            talks to the Sensor Node, serves the web control panel, and syncs with the cloud.</td></tr>
+    <tr><td><b>Sensor Node</b></td><td>Above or beside the water tank</td>
+        <td>Measures how full the tank is using a waterproof ultrasonic probe and reports the
+            reading to the Host Controller every 5 seconds. Has its own buzzer.</td></tr>
+    <tr><td><b>Wi-Fi Extender</b></td><td>Between the controller and the tank</td>
+        <td>Repeats the Host Controller's own Wi-Fi network so the Sensor Node and your phone
+            stay connected even when the tank is far from the motor.</td></tr>
+    <tr><td><b>Web Control Panel</b></td><td>Built into the Host Controller</td>
+        <td>A complete control page served by the controller itself. Opens in any browser on the
+            same Wi-Fi. Nothing to install, and it works with no internet at all.</td></tr>
+    <tr><td><b>Mobile Application</b></td><td>Your Android smartphone</td>
+        <td>Live status, motor control, schedules and alerts — at home on local Wi-Fi, or from
+            anywhere in the world over the internet.</td></tr>
+    <tr><td><b>Secure Cloud Service</b></td><td>The internet</td>
+        <td>Relays commands and status between your device and your phone when you are away from
+            home, so the app keeps working on any connection.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">1.3</span> What Is New in This Edition</h2>
+<p>If you are upgrading from an earlier AutoMotor release, everything you already
+know still works exactly as before. These capabilities have been added on top:</p>
+
+<table>
+  <thead><tr><th style="width:32%">New capability</th><th>What it means for you</th></tr></thead>
+  <tbody>
+    <tr><td><b>Built-in web control panel</b></td>
+        <td>The controller now serves its own control page. Open a browser on the same Wi-Fi
+            and you get the full system — no app install, no internet, no account.
+            Covered in detail in <b>Section 5</b>.</td></tr>
+    <tr><td><b>Adjustable tank start / stop levels</b></td>
+        <td>The "tank is low" and "tank is full" marks are no longer fixed. Set them to suit
+            your tank and your habits.</td></tr>
+    <tr><td><b>Adjustable water detection sensitivity</b></td>
+        <td>Tune how much flow counts as "municipal water has arrived", so a weak supply is
+            still detected and a dripping line is not.</td></tr>
+    <tr><td><b>Motor run-time statistics</b></td>
+        <td>A daily bar chart for the last 31 days, with every day's run time split by what
+            started the motor — schedule, municipal water, tank, app, web page or switch.</td></tr>
+    <tr><td><b>Municipal water session log</b></td>
+        <td>The last ten supply sessions, each with its start time, end time, duration and
+            the litres collected.</td></tr>
+    <tr><td><b>Last run &amp; next run</b></td>
+        <td>See at a glance what started the motor last, when, and when the next schedule
+            is due to fire.</td></tr>
+    <tr><td><b>Restart history</b></td>
+        <td>A dated list of why the device last restarted — power on, brownout, update —
+            with lifetime totals for each reason.</td></tr>
+    <tr><td><b>Remote silence for the tank buzzer</b></td>
+        <td>The buzzer on the roof can now be acknowledged from the control panel. It re-arms
+            itself automatically, so it can never be left permanently disarmed.</td></tr>
+    <tr><td><b>Two firmware copies &amp; one-tap rollback</b></td>
+        <td>An update is written into a spare slot, so the previous version stays in the device
+            and can be restored instantly if anything looks wrong.</td></tr>
+    <tr><td><b>Local firmware upload</b></td>
+        <td>A technician can flash the device directly over Wi-Fi from a laptop with no
+            internet connection at all.</td></tr>
+    <tr><td><b>Data download</b></td>
+        <td>Save the full run-time and water-session history to your phone as a plain text file.</td></tr>
+    <tr><td><b>Erase data &amp; factory reset</b></td>
+        <td>Clear the history without touching your settings, or reset the whole device to
+            as-new condition.</td></tr>
+  </tbody>
+</table>
+
+<div class="note info"><b>A note on connectivity.</b> Internet is optional, not required.
+Every automation in this manual — municipal water auto start, tank auto fill, schedules,
+buzzer alerts and the entire web control panel — runs entirely inside the Host Controller.
+The internet connection only adds remote access from outside your home.</div>
+</section>
+
+<!-- ======================= 2 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">2.</span> Host Controller — The Brain of the System</h1>
+<p class="secintro"><b>Installed at:</b> near the water motor or the electrical panel.<br>
+<b>Role:</b> the Host Controller is the central unit. It reads the flow sensor, switches the
+motor, talks to the Sensor Node, keeps the clock, enforces every automation rule, manages
+your schedules, raises the alerts, serves the web control panel to your browser, and syncs
+with the cloud when internet is enabled.</p>
+
+<h2><span class="n">2.1</span> Municipal Water Auto Start <span class="badge up">Improved</span></h2>
+<div class="purpose"><b>Purpose:</b> automatically starts the motor the moment municipal
+(tap) water arrives in your supply pipe — so you never miss a drop of incoming water.</div>
+
+<p>In most homes municipal water does not arrive at a fixed time. This feature watches the
+supply pipe continuously with a flow sensor. The instant water starts moving, the system
+recognises it and turns the motor ON to pump that water into your tank.</p>
+
+<ul>
+  <li>The flow sensor counts pulses from the pipe. Once the flow rate reaches the
+      <b>detection threshold</b> — 0.5 litres per minute by default — the system confirms
+      that municipal water has arrived.</li>
+  <li>As a second check, a <b>minimum volume</b> must be collected within a two-minute
+      rolling window (100 ml by default). This prevents a brief pressure surge or a dripping
+      tap from being mistaken for a real supply.</li>
+  <li>The motor starts automatically within seconds of detection. No action is needed from you.</li>
+  <li>A <b>3-minute minimum run time</b> is enforced: the motor will not switch off for at
+      least three minutes after starting. This stops false cut-outs caused by short
+      fluctuations in flow.</li>
+  <li>After that, the motor stops automatically when flow falls below the <b>cut-off
+      threshold</b> (0.4 litres per minute by default), confirming the supply has ended.</li>
+  <li>Every session records the <b>total quantity of water pumped in litres</b>, so you always
+      know how much water each supply actually delivered.</li>
+  <li>Both thresholds and the confirmation volume are <b>adjustable</b> — see section 2.7.</li>
+  <li>Auto Start can be switched on or off at any time from the web panel or the mobile app.</li>
+  <li>The setting is saved permanently and is restored automatically after a power cut.</li>
+</ul>
+
+<div class="note warn"><b>Note.</b> Auto Start will not fire if you have already turned the
+motor on yourself with Direct Motor Control. This prevents the motor being double-triggered.</div>
+<div class="note warn"><b>Note.</b> If the motor is already running under Direct Control when
+municipal water arrives, the system still sounds the buzzer so you know water has come — but it
+leaves the motor state alone.</div>
+
+<h2><span class="n">2.2</span> Tank Auto Fill — Automatic Level Control</h2>
+<div class="purpose"><b>Purpose:</b> keeps your tank topped up automatically by watching its
+level and running the motor when it drops — so you never run out of water at home.</div>
+
+<p>In this mode the controller works together with the Sensor Node mounted above your tank.
+The node measures the level every five seconds and reports it. Based on that reading, the
+controller decides whether the motor should run.</p>
+
+<ul>
+  <li>The motor turns <b>ON</b> automatically when the tank level falls to the <b>start
+      level</b> or below — 50% by default.</li>
+  <li>The motor turns <b>OFF</b> automatically when the level reaches the <b>stop level</b>
+      or above — 87% by default.</li>
+  <li>Both levels are adjustable from the web control panel (section 2.3).</li>
+</ul>
+
+<h3>The smart anti-chatter (hysteresis) system</h3>
+<p>Switching on and off at a single fixed level would make the motor flick on and off
+repeatedly as the water surface moves around that level. To prevent this, the system uses a
+layered decision instead:</p>
+
+<table>
+  <thead><tr><th style="width:32%">Level reading</th><th style="width:28%">Decision</th><th>Reason</th></tr></thead>
+  <tbody>
+    <tr><td>At or above the stop level</td><td>Tank <b>full</b> → motor OFF</td>
+        <td>The tank is full. There is nothing to pump.</td></tr>
+    <tr><td>Just below the stop level, when the tank was already marked full</td>
+        <td>Still treated as <b>full</b> → motor stays OFF</td>
+        <td>A small dead band that stops the motor restarting the instant it switched off.</td></tr>
+    <tr><td>Between the start and stop levels, motor not running</td>
+        <td>Treated as <b>full</b> → motor stays OFF</td>
+        <td>There is enough water. No action needed yet.</td></tr>
+    <tr><td>At or below the start level</td><td>Tank <b>not full</b> → motor ON</td>
+        <td>The tank is running low. Start refilling.</td></tr>
+    <tr><td>Below the stop level while the motor is already running</td>
+        <td>Tank <b>not full</b> → motor stays ON</td>
+        <td>Keep filling until it is genuinely full. Do not stop halfway.</td></tr>
+  </tbody>
+</table>
+
+<div class="note tip"><b>Tip.</b> This anti-chatter behaviour protects your motor from rapid
+repeated switching, which causes real wear and shortens motor life.</div>
+
+<ul>
+  <li>If the Sensor Node stops reporting for more than <b>2 minutes</b> — for example a power
+      cut at the tank — the controller treats the tank as full as a safety measure and stops
+      the motor. A buzzer alert sounds immediately at the controller.</li>
+  <li>The web panel also shows <b>how old the tank reading is</b>, so a stale number can never
+      be mistaken for a live one.</li>
+  <li>Tank Auto Fill is saved permanently and resumes automatically after a power cut.</li>
+</ul>
+
+<div class="note block"><b>Blocked.</b> Tank Auto Fill cannot be switched on while the motor
+is already running under Municipal Water Auto Start or Direct Motor Control. This prevents two
+automations fighting over the same motor.</div>
+
+<h2><span class="n">2.3</span> Adjustable Tank Start / Stop Levels <span class="badge nw">New</span></h2>
+<div class="purpose"><b>Purpose:</b> lets you decide how empty the tank must get before the
+motor starts, and how full it must be before the motor stops.</div>
+
+<ul>
+  <li>The <b>start level</b> (default 50%) is the point at which the tank counts as low.
+      Raise it if you would rather the tank was always kept near full; lower it if you prefer
+      fewer, longer runs.</li>
+  <li>The <b>stop level</b> (default 87%) is the point at which the tank counts as full.</li>
+  <li>The two levels must be at least five percentage points apart, so the automation always
+      has a sensible band to work in.</li>
+  <li>Both are set from the <b>Tank Levels</b> card in the web control panel and are saved
+      permanently in the device.</li>
+</ul>
+
+<div class="note warn"><b>Why the stop level is capped at 87%.</b> The ultrasonic probe sits
+above the full mark and, like all ultrasonic sensors, cannot measure anything closer than about
+20–25 cm. Once the water rises past roughly 88%, the surface is inside the probe's blind zone
+and it stops returning a usable reading. A stop level set higher than that could never be
+reached — the motor would simply keep running until the tank overflowed. The system therefore
+refuses any value above 87%. See section 4.6 for how to raise this ceiling by remounting
+the probe higher.</div>
+
+<h2><span class="n">2.4</span> Direct Motor Control</h2>
+<div class="purpose"><b>Purpose:</b> gives you immediate manual control of the motor,
+overriding the automatic modes whenever you need to.</div>
+
+<p>Sometimes you simply want the motor to run — to clean the tank, to test the installation,
+or to deal with something unusual. Direct Motor Control does exactly that, from the web panel
+or the mobile app.</p>
+
+<ul>
+  <li>Turn the motor ON or OFF instantly. Works on local Wi-Fi and remotely over the internet.</li>
+  <li>When you turn the motor ON manually, Tank Auto Fill is switched off automatically to
+      avoid a conflict.</li>
+  <li>When you turn the motor OFF manually, <b>all</b> automatic flags are cleared — Auto
+      Start, Tank Auto Fill and municipal water tracking all reset cleanly.</li>
+  <li>The motor state is saved permanently. If power fails while the motor is running, the
+      motor resumes when power returns.</li>
+  <li>A short buzzer beep confirms every manual ON and OFF.</li>
+  <li>The system records that <i>you</i> started this run, so it shows up correctly in the
+      run-time statistics and in the last-run record.</li>
+</ul>
+
+<div class="note block"><b>Blocked.</b> A manual motor ON is refused if Municipal Water Auto
+Start has already detected water and started the motor, to prevent a double-trigger conflict.
+The panel tells you why.</div>
+
+<h2><span class="n">2.5</span> Timer-Based Motor Scheduling</h2>
+<div class="purpose"><b>Purpose:</b> runs the motor at a chosen time of day automatically —
+ideal where the municipal supply is predictable.</div>
+
+<ul>
+  <li>Up to <b>five independent schedules</b> can be active at once.</li>
+  <li>Each schedule sets a <b>start time</b> (hour, minute, second), a <b>duration</b> in
+      minutes, and whether it <b>repeats daily</b> or runs just once.</li>
+  <li>If you set a time that has already passed today, the system automatically moves it to
+      the same time tomorrow.</li>
+  <li>Repeating schedules roll forward by 24 hours after each run, so they keep going day
+      after day with no further action from you.</li>
+  <li>One-time schedules are cleared from memory automatically once they have run.</li>
+  <li>All schedules survive a power cut.</li>
+  <li>Schedules can be viewed, edited and deleted from the web panel and the mobile app.</li>
+  <li>Deleting all schedules immediately stops any scheduled run that is in progress.</li>
+  <li>The panel also shows you <b>when the next schedule is due</b> (section 5.10).</li>
+</ul>
+
+<div class="note block"><b>Blocked.</b> Schedules will not run until the clock has been set.
+The panel shows a <i>"clock must be set first"</i> reminder in this case.</div>
+<div class="note block"><b>Blocked.</b> A schedule will not take over the motor while
+Municipal Water Auto Start or Tank Auto Fill is actively running it. It is simply re-evaluated
+on the next cycle.</div>
+
+<h2><span class="n">2.6</span> Flow Sensor &amp; Water Quantity Measurement</h2>
+<div class="purpose"><b>Purpose:</b> measures exactly how many litres of municipal water each
+supply session delivers — so you have a real picture of what you receive.</div>
+
+<ul>
+  <li>A pulse-type water flow sensor is fitted to the pipe between the municipal supply and
+      the motor.</li>
+  <li>Each pulse represents a precisely calibrated volume of water.</li>
+  <li>Pulses are counted continuously and converted into a live <b>flow rate</b> in litres per
+      minute and a running <b>total volume</b>.</li>
+  <li>The total is displayed live on the web panel and in the mobile app, and is pushed to the
+      cloud when internet is enabled.</li>
+  <li>The total resets to zero at the start of each new municipal supply session.</li>
+  <li>Totals are written to permanent memory, so a restart mid-session does not lose the
+      measurement.</li>
+</ul>
+
+<h2><span class="n">2.7</span> Adjustable Municipal Water Detection <span class="badge nw">New</span></h2>
+<div class="purpose"><b>Purpose:</b> lets you tune how sensitive the system is to incoming
+water, so it suits your own supply pressure.</div>
+
+<p>Every supply line behaves differently. A high-pressure connection surges; a weak one
+trickles. Three settings on the web panel let you match the system to yours:</p>
+
+<table>
+  <thead><tr><th style="width:34%">Setting</th><th style="width:16%">Default</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><b>Flow rate to detect water</b></td><td>0.5 L/min</td>
+        <td>How much flow counts as "water has arrived". Lower it if a weak supply is being
+            missed; raise it if the system reacts to a trickle that is not a real supply.</td></tr>
+    <tr><td><b>Flow rate to cut motor off</b></td><td>0.4 L/min</td>
+        <td>How little flow counts as "the supply has stopped". Should always be set below the
+            detection value, so the system does not oscillate between the two.</td></tr>
+    <tr><td><b>Volume to confirm supply</b></td><td>100 ml</td>
+        <td>How much water must actually be collected within a two-minute window before the
+            system accepts that a genuine supply is running.</td></tr>
+  </tbody>
+</table>
+
+<div class="note tip"><b>Tip.</b> Leave these at their defaults unless you have an actual
+problem. If the motor sometimes starts when no real water has arrived, raise the detection
+rate or the confirmation volume. If a genuine supply is being missed, lower the detection rate.</div>
+
+<h2><span class="n">2.8</span> Municipal Water Session Log <span class="badge nw">New</span></h2>
+<div class="purpose"><b>Purpose:</b> keeps a record of your recent municipal water supplies,
+so you can see when water came and how much you got.</div>
+
+<ul>
+  <li>The <b>last ten supply sessions</b> are stored in the device, newest first.</li>
+  <li>Each entry shows the date and time water arrived, the time it stopped, how long the
+      supply lasted, and the litres collected.</li>
+  <li>A session that is still running is marked <b>"still flowing"</b> and its duration and
+      volume update live.</li>
+  <li>Very short bursts are deliberately ignored, so a pipe simply pressurising does not
+      clutter the log with meaningless one-second entries.</li>
+  <li>An in-progress session is checkpointed to permanent memory regularly, so a power cut
+      costs at most a few minutes of the record rather than the whole session.</li>
+  <li>The log can be downloaded as a text file (section 2.20).</li>
+</ul>
+
+<h2><span class="n">2.9</span> Motor Run-Time Statistics <span class="badge nw">New</span></h2>
+<div class="purpose"><b>Purpose:</b> tells you exactly how long your motor has been running,
+day by day, and what caused each run.</div>
+
+<ul>
+  <li>Run time is totalled for every day of the last <b>31 days</b> and kept in the device.</li>
+  <li>Totals can be viewed for <b>today</b>, the <b>last 7 days</b> or the <b>last 30 days</b>.</li>
+  <li>Every total is split by <b>what started the motor</b>: mobile app, web page, schedule,
+      municipal water, tank auto-fill, or the physical switch.</li>
+  <li>A daily bar chart shows the pattern at a glance; tapping any bar breaks that single
+      day down by source.</li>
+  <li>Days are split at your local midnight, so the figures line up with real calendar days.</li>
+  <li>A run in progress is included in the totals as it happens.</li>
+</ul>
+
+<div class="note tip"><b>Why this matters.</b> Run time is the single best indicator of both
+your electricity use and your motor's wear. A month where "Tank auto-fill" suddenly dominates
+usually means a leak or a tap left open somewhere.</div>
+
+<h2><span class="n">2.10</span> Last Run &amp; Next Run Record <span class="badge nw">New</span></h2>
+<div class="purpose"><b>Purpose:</b> answers the two questions people actually ask — "why did
+the motor run?" and "when will it run next?"</div>
+
+<ul>
+  <li><b>Last started by</b> — which of the six sources started the most recent run.</li>
+  <li><b>Last started at</b> — the exact date and time it began.</li>
+  <li><b>Next schedule</b> — when the next stored schedule is due to fire, including
+      repeating schedules rolled forward to tomorrow.</li>
+  <li>All three survive power cuts.</li>
+</ul>
+</section>
+
+<section class="pagebreak">
+<h2 style="margin-top:0"><span class="n">2.11</span> Smart Buzzer Alert System</h2>
+<div class="purpose"><b>Purpose:</b> keeps whoever is near the motor informed about important
+events, without needing to look at a phone.</div>
+
+<p>The Host Controller has a built-in buzzer that uses different sound patterns for different
+events. This is genuinely useful when you are near the motor room and want to know what the
+system is doing without opening anything.</p>
+
+<table>
+  <thead><tr><th style="width:20%">Pattern</th><th style="width:22%">Sound</th><th style="width:32%">Triggered by</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><b>Continuous</b></td><td>One long steady beep</td>
+        <td>Municipal water arrived in Tank mode; Sensor Node disconnected; schedule completed;
+            schedules deleted; device start-up</td>
+        <td>Something important happened. Check the panel or the app.</td></tr>
+    <tr><td><b>Fast beep</b></td><td>Rapid short beeps</td>
+        <td>Motor started by Tank Auto Fill</td>
+        <td>The motor is starting because the tank is low.</td></tr>
+    <tr><td><b>Beep-beep-pause</b></td><td>Two beeps, pause, repeat</td>
+        <td>Wi-Fi connection lost; weak Wi-Fi signal detected</td>
+        <td>Warning — a network or internet problem.</td></tr>
+    <tr><td><b>Medium alternating</b></td><td>Evenly paced on / off beeps</td>
+        <td>Municipal water detected by Auto Start; direct motor ON / OFF command</td>
+        <td>The motor has just been turned on or off.</td></tr>
+    <tr><td><b>Silent</b></td><td>—</td><td>System idle, everything normal</td>
+        <td>All is well. No action needed.</td></tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Each alert has a maximum duration — around a second for simple confirmations, and up
+      to a few minutes for a water-arrival alert that is meant to wake you.</li>
+  <li><b>Buzzer mute.</b> The controller's buzzer can be switched off entirely from the
+      <b>Device Buzzer</b> tile on the web panel. While muted, no alert will sound. The setting
+      is saved and survives a power cut, so remember to switch it back on.</li>
+  <li><b>Stop Buzzer</b> silences an alert that is sounding right now without disabling future
+      alerts.</li>
+  <li>Special case: if the motor is already running under Direct Control when municipal water
+      arrives, the buzzer still sounds to notify you, even though the motor state does not
+      change.</li>
+</ul>
+
+<h2><span class="n">2.12</span> Silencing the Tank Buzzer from Anywhere <span class="badge nw">New</span></h2>
+<div class="purpose"><b>Purpose:</b> lets you acknowledge the buzzer on the roof from your
+phone, instead of climbing up to it.</div>
+
+<p>The Sensor Node has its own buzzer, out at the tank, where nobody can conveniently reach
+it. It sounds whenever the tank level leaves the safe band. You can now silence it from the
+control panel:</p>
+
+<ul>
+  <li>While the tank buzzer is actually sounding, a <b>red banner appears at the top of the
+      web panel</b> carrying a single <b>Stop Buzzer</b> button.</li>
+  <li>The same command is always available as <b>Stop Tank Buzzer</b> under <b>Controls</b>.</li>
+  <li>The buzzer goes quiet within about five seconds of the tap.</li>
+  <li>The tank buzzer and the controller's own buzzer are silenced separately, so quieting
+      one never hides an alert from the other.</li>
+</ul>
+
+<div class="note info"><b>This is an acknowledgement, not a permanent setting.</b> As soon as
+the tank level returns to the normal range, the silence is cleared automatically and the buzzer
+re-arms itself, ready for the next alarm. A mute that outlived its alarm would leave the roof
+buzzer disarmed for good after one press — and nobody would notice until the tank overflowed.
+As a second safeguard, the Sensor Node re-arms its own buzzer if the controller stops
+confirming the silence for ten minutes: an alarm nobody can hear is worse than one nobody can
+silence.</div>
+
+<h2><span class="n">2.13</span> Built-in Real-Time Clock</h2>
+<div class="purpose"><b>Purpose:</b> keeps accurate date and time inside the device so
+schedules always run at the right moment — even after a power cut.</div>
+
+<ul>
+  <li>A dedicated hardware clock module with its own backup battery keeps time running while
+      the mains power is off.</li>
+  <li>The clock drives the schedule system and date-stamps every record the device keeps.</li>
+  <li>The same module measures the ambient temperature to within a quarter of a degree, shown
+      on the panel and in the app.</li>
+  <li>When internet is enabled, the clock synchronises itself with global internet time
+      servers automatically.</li>
+  <li>You can also set it by hand from the web panel or the mobile app — useful on first
+      setup or if it ever drifts.</li>
+</ul>
+
+<h2><span class="n">2.14</span> Internet &amp; Cloud Connectivity</h2>
+<div class="purpose"><b>Purpose:</b> connects your system to the internet so you can monitor
+and control it from anywhere in the world.</div>
+
+<p>When <b>Remote / IoT mode</b> is on, the Host Controller joins your home Wi-Fi router and
+communicates securely with a cloud service that relays commands and status between the device
+and your mobile app.</p>
+
+<ul>
+  <li>Live status is uploaded every few seconds: motor state, tank level, water flow status,
+      temperature, total water pumped and more.</li>
+  <li>Commands from the app — motor on, motor off, set a schedule, change a mode — are
+      delivered to the device and carried out in real time.</li>
+  <li>Works whether your phone is on your home Wi-Fi or on mobile data anywhere in the world.</li>
+  <li>All communication is authenticated. Only your own authorised account can send commands
+      to your device.</li>
+  <li>Remote mode can be turned on or off at any time. With it off, the system runs entirely
+      on its own local Wi-Fi and every automation continues exactly as normal.</li>
+</ul>
+
+<div class="note info"><b>Privacy and security.</b> All connection credentials are held
+securely inside the device and are never shown to users or exposed in the app or the web panel.</div>
+
+<h2><span class="n">2.15</span> Smart Wi-Fi Management</h2>
+<div class="purpose"><b>Purpose:</b> keeps the system connected and recovers from network
+problems on its own, with no manual intervention.</div>
+
+<ul>
+  <li>The Host Controller always runs <b>its own local Wi-Fi network</b>, so the Sensor Node,
+      the web panel and the mobile app have a working local connection even with no internet
+      and no router.</li>
+  <li>When Remote mode is on, the controller <b>also</b> joins your home router. Both
+      connections run at the same time.</li>
+  <li>Signal strength to the router is checked every few seconds. If it becomes too weak, a
+      buzzer warning sounds and the system waits briefly for it to recover.</li>
+  <li>If it does not recover, the controller disconnects cleanly from the router and falls
+      back to local-only operation.</li>
+  <li>If the router connection drops unexpectedly, reconnection is retried automatically for
+      about a minute before falling back to local-only mode.</li>
+  <li>When the router connection is restored, the system restarts itself to re-establish the
+      cloud link and re-sync the clock.</li>
+</ul>
+
+<div class="note tip"><b>Tip.</b> Even with no internet at all, <i>every</i> automation keeps
+working — Auto Start, Tank Auto Fill, schedules, alerts, and the complete web control panel.
+Internet is only needed for remote access from outside your home.</div>
+
+<h2><span class="n">2.16</span> Firmware Updates — Three Ways <span class="badge up">Improved</span></h2>
+<div class="purpose"><b>Purpose:</b> keeps your system current with new features and
+improvements, with a method to suit every situation.</div>
+
+<table>
+  <thead><tr><th style="width:24%">Method</th><th style="width:24%">Needs</th><th>How it works</th></tr></thead>
+  <tbody>
+    <tr><td><b>Cloud update</b><br>(web panel or app)</td><td>Internet on the device</td>
+        <td>Tap <b>Check For Update</b>. The device asks the update service whether a newer
+            version exists and answers yes or no. If yes, tap <b>Update &amp; Reboot</b> — the
+            device downloads, installs and restarts itself. Typically 1–3 minutes.</td></tr>
+    <tr><td><b>Local upload</b> <span class="badge nw">New</span></td><td>Only the local Wi-Fi</td>
+        <td>A technician selects a prepared firmware file on a phone or laptop and uploads it
+            straight to the device over Wi-Fi, with a live progress bar. No internet needed
+            anywhere.</td></tr>
+    <tr><td><b>Remote / cloud-triggered</b></td><td>Internet on the device</td>
+        <td>An update can be initiated through the cloud with no physical access to the device
+            at all — useful for a service visit that does not need a visit.</td></tr>
+  </tbody>
+</table>
+
+<div class="note warn"><b>During an update.</b> Do not cut power to the device while an update
+is in progress. If an update is interrupted, the device falls back to its previous firmware
+copy automatically — see the next section.</div>
+
+<h2><span class="n">2.17</span> Two Firmware Copies &amp; One-Tap Rollback <span class="badge nw">New</span></h2>
+<div class="purpose"><b>Purpose:</b> makes updating safe. If a new version ever misbehaves,
+the previous one is still in the device and can be restored instantly.</div>
+
+<ul>
+  <li>The device holds <b>two firmware copies</b>. An update is always written into the spare
+      copy, so the version you were running stays intact.</li>
+  <li>After an update the device runs the new copy. If it fails to come up and check in
+      correctly, it <b>reverts to the previous copy automatically</b>.</li>
+  <li>You can also roll back deliberately, at any time, with a single button on the web panel
+      — no download and no internet required, because the older copy is already in the device.</li>
+  <li>The panel shows which copy is running now and which is held in reserve, each with its
+      version number and build date.</li>
+  <li>Only one step back is kept. The next update overwrites the older copy.</li>
+  <li>A factory reset does <b>not</b> erase either firmware copy, so rollback still works
+      afterwards.</li>
+</ul>
+
+<h2><span class="n">2.18</span> Permanent Settings Memory (Power-Cut Safe)</h2>
+<div class="purpose"><b>Purpose:</b> nothing you configure is ever lost when the power goes off.</div>
+
+<ul>
+  <li>Every setting is written to permanent memory inside the device the moment you change it.</li>
+  <li>After a power cut the device restores: Municipal Water Auto Start on/off; the motor state
+      (if it was running, it resumes); Tank Auto Fill on/off; all five schedules; tank start and
+      stop levels; water detection sensitivity; buzzer mute; Remote/IoT mode on/off; the water
+      quantity counter; the water session log; run-time statistics; restart history; and the
+      last-run record.</li>
+  <li>You never need to reconfigure anything after an outage. The system picks up exactly where
+      it left off.</li>
+</ul>
+
+<h2><span class="n">2.19</span> Health Monitoring &amp; Restart History <span class="badge up">Improved</span></h2>
+<div class="purpose"><b>Purpose:</b> records why the device restarted, so problems can be
+diagnosed quickly instead of guessed at.</div>
+
+<ul>
+  <li>Every restart is recorded with its date, time and cause — normal power on, a software
+      update, a power brownout (a voltage dip), a hardware fault, and others.</li>
+  <li>The <b>last sixteen restarts</b> are kept, newest first, and shown on the web panel.</li>
+  <li><b>Lifetime totals</b> per cause are kept separately, so you can see, for example,
+      "Power on × 9, Brownout × 2" even after the detailed list has rolled over.</li>
+  <li>Health information is also uploaded to the cloud when internet is enabled, so the
+      history can be reviewed from the app.</li>
+  <li>Device uptime — how long since the last restart — is shown on the panel at all times.</li>
+</ul>
+
+<div class="note tip"><b>What to look for.</b> Repeated <i>Brownout</i> entries mean the supply
+voltage at the device is dipping, usually when the motor starts. That is worth showing to an
+electrician. Repeated <i>Power on</i> entries simply mean mains outages.</div>
+
+<h2><span class="n">2.20</span> Data Export, Erase and Factory Reset <span class="badge nw">New</span></h2>
+<div class="purpose"><b>Purpose:</b> gives you control over the information the device has
+collected — to keep it, clear it, or start completely fresh.</div>
+
+<table>
+  <thead><tr><th style="width:26%">Action</th><th style="width:37%">What it does</th><th>What it does <i>not</i> touch</th></tr></thead>
+  <tbody>
+    <tr><td><b>Download Data</b></td>
+        <td>Saves the daily motor run time for every day still held in the device and all kept
+            municipal water sessions as a plain text file on your phone or laptop.</td>
+        <td>Nothing is erased. Purely a copy.</td></tr>
+    <tr><td><b>Erase Stored Data</b></td>
+        <td>Deletes the water sessions, restart history, run-time statistics and last-run
+            record, and restores detection sensitivity and the buzzer setting to defaults.</td>
+        <td>Your schedules and tank levels are kept.</td></tr>
+    <tr><td><b>Factory Reset</b></td>
+        <td>Erases <i>everything</i> the device has saved — schedules, tank and auto-start
+            modes, water totals and all history. The device restarts as if brand new.</td>
+        <td>Both firmware copies are kept, so rollback still works.</td></tr>
+  </tbody>
+</table>
+
+<div class="note warn"><b>Both erase actions ask you to confirm before anything is deleted, and
+neither can be undone.</b> Download your data first if you want to keep it.</div>
+</section>
+
+<!-- ======================= 3 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">3.</span> Physical Controls on the Host Unit</h1>
+<p class="secintro">Besides the web panel and the mobile app, the Host Controller has physical
+inputs on the unit itself. This lets an operator standing at the motor act immediately, with no
+phone in hand.</p>
+
+<h2><span class="n">3.1</span> Tank Mode Rocker Switch</h2>
+<div class="purpose"><b>Purpose:</b> lets the operator at the motor enable or disable automatic
+tank filling without opening anything.</div>
+
+<p>A rocker switch is mounted on the Host Controller unit. It directly controls whether Tank
+Auto Fill is active.</p>
+
+<table>
+  <thead><tr><th style="width:26%">Switch position</th><th style="width:20%">State</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>Pressed / closed</td><td><b>Tank mode ON</b></td>
+        <td>Tank level monitoring starts. If the tank is at or below the start level, the motor
+            turns on automatically.</td></tr>
+    <tr><td>Released / open</td><td><b>Tank mode OFF</b></td>
+        <td>Tank level monitoring stops. If the motor was running because of tank mode, it
+            stops immediately.</td></tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>The switch is read every second, so a change takes effect at once.</li>
+  <li>Its setting is saved to permanent memory and is remembered after a power cut.</li>
+  <li>The state is mirrored on the web panel and in the app, so the switch and the software
+      always agree.</li>
+  <li>A run started this way is recorded as started by the <b>physical switch</b>, so it shows
+      up correctly in the run-time statistics.</li>
+</ul>
+
+<div class="note block"><b>Blocked.</b> The rocker switch is ignored while the motor is already
+running under Municipal Water Auto Start or Direct Motor Control. It takes effect only in
+neutral conditions.</div>
+
+<h2><span class="n">3.2</span> Flow Sensor (Automatic Input)</h2>
+<div class="purpose"><b>Purpose:</b> detects the presence and rate of water in the supply pipe
+— the core sensor behind Municipal Water Auto Start.</div>
+
+<ul>
+  <li>The flow sensor is plumbed into the incoming water pipe and produces electrical pulses
+      as water passes through it.</li>
+  <li>The system counts these pulses every second to calculate flow rate and to decide whether
+      municipal water is present.</li>
+  <li>No manual action is ever needed — it works entirely automatically and feeds both the
+      Auto Start logic and the litre measurement.</li>
+</ul>
+
+<h2><span class="n">3.3</span> Temperature Sensor (Built In)</h2>
+<div class="purpose"><b>Purpose:</b> provides an ambient temperature reading from inside the
+controller unit.</div>
+
+<ul>
+  <li>The clock module includes a temperature sensor accurate to about a quarter of a degree.</li>
+  <li>The reading is refreshed every second, shown live on the web panel and in the app, and
+      uploaded to the cloud when internet is enabled.</li>
+  <li>It is a useful rough indicator of how hot your electrical panel or motor room is getting.</li>
+</ul>
+</section>
+
+<!-- ======================= 4 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">4.</span> Sensor Node — The Tank Level Monitor</h1>
+<p class="secintro"><b>Installed at:</b> above or beside the water tank, overhead or
+underground.<br>
+<b>Role:</b> a compact, independent unit that measures the water level in your tank and reports
+it to the Host Controller every five seconds. Without the Sensor Node, Tank Auto Fill cannot
+work.</p>
+
+<h2><span class="n">4.1</span> Ultrasonic Water Level Sensing</h2>
+<div class="purpose"><b>Purpose:</b> measures the level inside your tank without ever touching
+the water, using sound.</div>
+
+<p>The Sensor Node uses a waterproof ultrasonic probe mounted above the tank. It sends a sound
+pulse downward and times the echo coming back off the water surface. That time gives the
+distance to the water, which is converted into a level percentage.</p>
+
+<ul>
+  <li>Tank depth and the probe's mounting height above the full mark are both configured to
+      match your actual tank, and the offset is accounted for automatically.</li>
+  <li><b>Level % = (tank depth − distance down to the water surface) ÷ tank depth × 100</b></li>
+  <li>For a stable reading, <b>five measurements are taken every cycle and the middle
+      (median) value is used</b>, which rejects noise and false reflections off the tank walls.</li>
+  <li>If no usable echo comes back — a blocked or disconnected probe, or heavy foam — the
+      reading is flagged rather than reported as though it were real, and the previous figure is
+      clearly marked as held over.</li>
+  <li>The web panel shows how old the reading is, so a stale value can never be mistaken for
+      a live one.</li>
+</ul>
+
+<div class="note tip"><b>Tip.</b> The ultrasonic probe works with any water — clean, dirty or
+coloured — as long as the surface is in clear line of sight and nothing obstructs the space
+between the probe and the water.</div>
+
+<h2><span class="n">4.2</span> Automatic Reporting to the Host Controller</h2>
+<div class="purpose"><b>Purpose:</b> keeps the Host Controller continuously supplied with tank
+data so it can make real decisions about the motor.</div>
+
+<ul>
+  <li>Every <b>5 seconds</b> the node measures the level and sends it to the Host Controller
+      over the local Wi-Fi link.</li>
+  <li>Each report carries the level percentage, the raw distance reading, whether the reading
+      is fresh or held over, and whether the tank is currently in an alarm condition.</li>
+  <li>If Wi-Fi drops, the node retries the connection by itself and resumes reporting as soon
+      as it is back.</li>
+  <li>The onboard LED blinks briefly on each successful report — a quick visual confirmation
+      that the unit is alive and talking.</li>
+</ul>
+
+<h2><span class="n">4.3</span> Local Tank Buzzer Alerts</h2>
+<div class="purpose"><b>Purpose:</b> gives an audible warning right at the tank when the level
+is critically low or nearly full.</div>
+
+<table>
+  <thead><tr><th style="width:30%">Condition</th><th style="width:28%">Buzzer</th><th>What it means</th></tr></thead>
+  <tbody>
+    <tr><td>Level below <b>20%</b></td><td>Short beep every second</td>
+        <td>The tank is critically low. The motor should be running soon.</td></tr>
+    <tr><td>Level above <b>88%</b></td><td>Long beep every second</td>
+        <td>The tank is almost full. The motor should be stopping soon.</td></tr>
+    <tr><td>Level between 20% and 88%</td><td>Silent</td>
+        <td>Normal operating range. No alert needed.</td></tr>
+    <tr><td>Start-up complete</td><td>Two short beeps</td>
+        <td>The Sensor Node has booted and connected to the Host Controller.</td></tr>
+  </tbody>
+</table>
+
+<div class="note info"><b>Who decides the alarm.</b> The alarm band belongs to the Sensor Node,
+because it is a property of where that particular probe is mounted. The Host Controller reads
+the node's verdict rather than working it out again from its own numbers — which means there is
+only ever one set of limits, and it cannot drift out of step.</div>
+
+<h2><span class="n">4.4</span> Remote Buzzer Silence</h2>
+<div class="purpose"><b>Purpose:</b> lets you acknowledge the tank buzzer from the control
+panel instead of going up to the tank.</div>
+
+<p>Full details are in section 2.12. In short: while the tank buzzer is sounding, a red banner
+appears at the top of the web panel with a single <b>Stop Buzzer</b> button, and the same
+command is always available as <b>Stop Tank Buzzer</b> under Controls. The buzzer goes quiet
+within about five seconds, and re-arms itself automatically once the tank level returns to
+normal.</p>
+
+<h2><span class="n">4.5</span> Wi-Fi Communication &amp; Firmware Update</h2>
+<div class="purpose"><b>Purpose:</b> connects the Sensor Node to the Host Controller reliably
+over the longest possible distance, and allows its software to be updated wirelessly.</div>
+
+<ul>
+  <li>The node joins the Host Controller's own local Wi-Fi network automatically on start-up.</li>
+  <li>The link is deliberately configured for <b>maximum range rather than maximum speed</b>:
+      full transmit power, the longest-reaching Wi-Fi mode, and power-saving sleep disabled so
+      no report is ever missed. The node is usually on a roof, far from the controller.</li>
+  <li>If the connection drops it reconnects by itself, with no intervention.</li>
+  <li><b>LED indicator:</b> lit = Wi-Fi disconnected or error; off = connected and working;
+      quick blink = a reading was just sent successfully.</li>
+  <li><b>Firmware update:</b> for the first <b>5 minutes</b> after every restart, the Sensor
+      Node accepts a wireless software update from a browser on the same network. After five
+      minutes that window closes automatically and the node devotes itself entirely to
+      measuring and reporting.</li>
+</ul>
+
+<div class="note info"><b>Why the update window closes.</b> Keeping an update service running
+permanently on a device nobody can physically reach would be a standing risk. A short window
+that opens only when someone deliberately restarts the node gives easy maintenance without
+leaving that door open.</div>
+
+<h2><span class="n">4.6</span> Mounting the Probe Correctly</h2>
+<div class="purpose"><b>Purpose:</b> getting this right is the single biggest factor in how
+accurate your tank readings will be.</div>
+
+<p>Every ultrasonic probe has a <b>blind zone</b> — a minimum distance below which it cannot
+measure at all. On the probe used here that is roughly 20–25 cm. If the probe is mounted only a
+little above the full mark, the water surface enters that blind zone while the tank is still
+filling, and the top of the tank is effectively unmeasurable.</p>
+
+<table>
+  <thead><tr><th style="width:34%">Water level</th><th style="width:33%">Distance the probe sees</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td>100% (full)</td><td>≈ 12 cm</td><td>Inside the blind zone — no reading</td></tr>
+    <tr><td>94%</td><td>≈ 17 cm</td><td>Inside the blind zone — no reading</td></tr>
+    <tr><td>88%</td><td>≈ 22 cm</td><td>Marginal</td></tr>
+    <tr><td>20%</td><td>≈ 78 cm</td><td>Reliable</td></tr>
+  </tbody>
+</table>
+
+<div class="note warn"><b>Recommendation for installers.</b> Mount the probe at least
+<b>25 cm above the tank's full mark</b> and set the mounting offset to match. Done that way,
+the whole usable range of the tank is genuinely measured and the stop level can be set higher
+with confidence. With a shorter offset, treat "full" as an inference rather than a measurement
+— which is precisely why the system caps the stop level at 87% by default.</div>
+</section>
+
+<!-- ======================= 5 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">5.</span> The Web Control Panel</h1>
+<p class="secintro">The Host Controller serves its own complete control page. Open a browser on
+any phone, tablet or laptop connected to the system's Wi-Fi and the whole system is in front of
+you — live status, motor control, schedules, settings, history and firmware management.
+<b>There is nothing to install, no account to create and no internet connection required.</b>
+The screenshots in this section are of the actual panel.</p>
+
+<h2><span class="n">5.1</span> Opening the Panel</h2>
+<ol>
+  <li>On your phone or laptop, open Wi-Fi settings and connect to the Host Controller's own
+      network, named <b>ESP32-WROOM</b>. The password is supplied with your installation.</li>
+  <li>Open any web browser and go to <b>http://192.168.4.1</b></li>
+  <li>The panel loads and begins showing live readings immediately.</li>
+</ol>
+
+<ul>
+  <li>The panel is designed phone-first: the motor state, the power button and the mode tiles
+      all fit on one screen on a typical phone, with no scrolling needed for day-to-day use.</li>
+  <li>Everything below that is grouped into collapsible sections. Tap a section heading to open
+      or close it, or use <b>Expand all</b> to open everything at once.</li>
+  <li>The header carries a connection indicator — a green dot while the device is responding,
+      red if it is not.</li>
+  <li>The first time you open the panel it asks you to tap once to enable the municipal-water
+      alert sound. Browsers require that one tap before any page is allowed to play audio.</li>
+</ul>
+
+<div class="note tip"><b>Tip.</b> Add the page to your phone's home screen. It then opens like
+an app, full-screen, straight to the motor controls.</div>
+
+<figure>
+  <img class="tall" src="images/top.png" alt="The AutoMotor web control panel as it first opens">
+  <figcaption>Figure 5.1 — The panel as it opens: connection state in the header, the motor
+    card, and the collapsible sections below.</figcaption>
+</figure>
+
+<h2><span class="n">5.2</span> The Motor Card</h2>
+<div class="purpose"><b>Purpose:</b> the one screen that answers "what is my motor doing, and
+how do I change it".</div>
+
+<figure>
+  <img class="narrow" src="images/00-hero.png" alt="Motor card showing the motor running">
+  <figcaption>Figure 5.2 — The motor card. Green means the motor is running; the subtitle names
+    what started it.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:30%">Element</th><th>What it shows / does</th></tr></thead>
+  <tbody>
+    <tr><td><b>Animated motor graphic</b></td>
+        <td>The impeller spins while the motor is running, so the state is obvious at a glance
+            even across a room.</td></tr>
+    <tr><td><b>Motor Running / Motor Off</b></td>
+        <td>The current state, with a subtitle naming what started this run — for example
+            "Started by Municipal water".</td></tr>
+    <tr><td><b>Power button</b></td>
+        <td>One tap starts or stops the motor. You are asked to confirm before anything
+            switches, so a mis-tap cannot start your pump.</td></tr>
+    <tr><td><b>Uptime</b></td><td>How long since the device last restarted.</td></tr>
+    <tr><td><b>Today</b></td><td>How long the motor has run so far today, across all sources.</td></tr>
+    <tr><td><b>Municipal Water Auto Start</b> tile</td>
+        <td>Tap to turn automatic starting on incoming water on or off. Shows ON or OFF.</td></tr>
+    <tr><td><b>Tank Auto Fill</b> tile</td>
+        <td>Tap to turn automatic tank level control on or off. Shows ON or OFF.</td></tr>
+    <tr><td><b>Device Buzzer</b> tile</td>
+        <td>Tap to mute or un-mute the controller's own buzzer. Shows SOUND ON or MUTED.</td></tr>
+    <tr><td><b>Footer line</b></td>
+        <td>Connection status on the left, the time of the last successful reading on the right.</td></tr>
+  </tbody>
+</table>
+
+<div class="note info"><b>If a request is refused.</b> When a mode conflict blocks an action —
+for example turning the motor on manually while Auto Start is already running it — the panel
+says so in plain language directly under the button, rather than silently doing nothing. The
+full set of rules is in section 8.2.</div>
+
+<h2><span class="n">5.3</span> Live Status</h2>
+<div class="purpose"><b>Purpose:</b> the complete real-time picture of your water system in one
+place.</div>
+
+<figure>
+  <img class="mid" src="images/01-live.png" alt="Live Status card">
+  <figcaption>Figure 5.3 — Live Status. The banner reports the municipal supply; the four tiles
+    carry the key readings.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:28%">Reading</th><th style="width:26%">Shows</th><th>Why it matters</th></tr></thead>
+  <tbody>
+    <tr><td><b>Municipal water banner</b></td><td>Available / not available</td>
+        <td>Whether government water is flowing in your pipe right now.</td></tr>
+    <tr><td><b>Motor</b></td><td>ON or OFF</td><td>Whether your motor is running at this moment.</td></tr>
+    <tr><td><b>Tank Level</b></td><td>Percentage, to one decimal place, with the age of the reading</td>
+        <td>Exactly how full your tank is — and how fresh that figure is. "Updated just now"
+            means the Sensor Node is reporting normally.</td></tr>
+    <tr><td><b>Municipal Qty</b></td><td>Litres in the current session</td>
+        <td>How much water this supply has delivered so far.</td></tr>
+    <tr><td><b>Temperature</b></td><td>°C at the controller</td>
+        <td>How hot the motor panel environment is getting.</td></tr>
+  </tbody>
+</table>
+
+<div class="note tip"><b>Tip.</b> If the tank level says "no reading yet" or shows an age of
+several minutes, the Sensor Node is not reaching the controller. Start with section 10,
+<i>Troubleshooting</i>.</div>
+
+<h2><span class="n">5.4</span> Controls</h2>
+<div class="purpose"><b>Purpose:</b> the occasional actions that do not belong on the main
+motor card.</div>
+
+<figure>
+  <img class="mid" src="images/02-controls.png" alt="Controls card">
+  <figcaption>Figure 5.4 — Controls.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:30%">Button</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><b>Stop Buzzer</b></td>
+        <td>Silences an alert sounding at the controller right now. Future alerts still sound.</td></tr>
+    <tr><td><b>Stop Tank Buzzer</b></td>
+        <td>Silences the buzzer out at the Sensor Node. Takes effect within about five seconds
+            and re-arms automatically once the tank level is normal again.</td></tr>
+    <tr><td><b>Config Clock</b></td>
+        <td>Opens a date-and-time box so you can set the device clock by hand. Needed before
+            schedules will run, unless the device has already synced from the internet.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">5.5</span> Schedules</h2>
+<div class="purpose"><b>Purpose:</b> set, review and clear the five daily motor schedules.</div>
+
+<figure>
+  <img class="narrow" src="images/03-schedules.png" alt="Schedules card with three schedules set">
+  <figcaption>Figure 5.5 — Schedules. Two repeating daily runs and one that fires only once.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:26%">Field / button</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><b>Slots #1 to #5</b></td><td>Five independent schedules. Leave a slot blank to
+        disable it.</td></tr>
+    <tr><td><b>Time</b></td><td>The start time, to the second.</td></tr>
+    <tr><td><b>min</b></td><td>How many minutes the motor should run for.</td></tr>
+    <tr><td><b>Repeat</b></td><td>Ticked = runs every day at that time. Unticked = runs once,
+        then clears itself.</td></tr>
+    <tr><td><b>Load From Device</b></td><td>Fetches the schedules currently stored in the
+        controller, so you can see and edit exactly what is really set.</td></tr>
+    <tr><td><b>Save All</b></td><td>Writes all five slots to the device permanently.</td></tr>
+    <tr><td><b>Delete All</b></td><td>Clears every schedule. Any scheduled run in progress stops
+        at once. You are asked to confirm first.</td></tr>
+  </tbody>
+</table>
+
+<div class="note warn"><b>Set the clock first.</b> The section header carries the reminder
+"clock must be set first" for good reason — schedules are refused until the device knows the
+real time, because an unset clock would run your motor at the wrong hour.</div>
+
+<h2><span class="n">5.6</span> Remote / IoT Mode</h2>
+<div class="purpose"><b>Purpose:</b> one switch that controls whether the device connects to
+the internet for remote access.</div>
+
+<figure>
+  <img class="mid" src="images/04-iot.png" alt="Remote / IoT Mode card">
+  <figcaption>Figure 5.6 — Remote / IoT mode.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:22%">Position</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><b>On</b></td>
+        <td>The controller joins your home router, syncs its clock from the internet, connects
+            to the cloud service, and remote control from the mobile app becomes available
+            anywhere in the world.</td></tr>
+    <tr><td><b>Off</b></td>
+        <td>The controller disconnects from the router and runs on its own local Wi-Fi only.
+            All automation continues unchanged. Remote app control is unavailable, but local
+            control on the same Wi-Fi keeps working normally.</td></tr>
+  </tbody>
+</table>
+
+<div class="note info"><b>Expect a brief interruption.</b> Switching this setting makes the
+device change Wi-Fi mode, so the panel may lose contact for a few seconds and then reconnect
+by itself. That is normal.</div>
+</section>
+
+<section class="pagebreak">
+<h2 style="margin-top:0"><span class="n">5.7</span> Firmware — Cloud Update</h2>
+<div class="purpose"><b>Purpose:</b> updates the device over the internet, in two taps.</div>
+
+<figure>
+  <img class="mid" src="images/05-fwcloud.png" alt="Firmware cloud update card">
+  <figcaption>Figure 5.7 — Cloud update.</figcaption>
+</figure>
+
+<ol>
+  <li>Tap <b>Check For Update</b>. The device asks the update service whether a newer version
+      exists and reports back yes or no.</li>
+  <li>If a newer version is available, tap <b>Update &amp; Reboot</b>. You are asked to confirm.</li>
+  <li>The device downloads, installs and restarts itself. This normally takes one to three
+      minutes, after which the panel reconnects on its own.</li>
+</ol>
+
+<div class="note warn"><b>Requires internet.</b> Remote / IoT mode must be on and the device
+online. If it is not, use the local upload method instead.</div>
+
+<h2><span class="n">5.8</span> Firmware — Local Upload</h2>
+<div class="purpose"><b>Purpose:</b> lets a technician update the device with no internet
+connection at all.</div>
+
+<figure>
+  <img class="mid" src="images/06-fwlocal.png" alt="Firmware local upload card">
+  <figcaption>Figure 5.8 — Local upload, with its progress bar.</figcaption>
+</figure>
+
+<ul>
+  <li>Select a prepared firmware file supplied by BSR, then tap <b>Upload &amp; Flash</b>.</li>
+  <li>The file transfers straight over the local Wi-Fi link, with a live progress bar.</li>
+  <li>The device installs it and restarts automatically.</li>
+  <li>Nothing leaves your premises and no internet connection is used at any point.</li>
+</ul>
+
+<div class="note warn"><b>For service use.</b> Only ever upload a firmware file supplied by BSR
+for this product. Do not interrupt the power while the progress bar is moving. If an upload
+does fail, the previous firmware copy is still in the device — see section 5.15.</div>
+
+<h2><span class="n">5.9</span> Motor Run Time</h2>
+<div class="purpose"><b>Purpose:</b> shows how long the motor has actually run, day by day, and
+what caused each run.</div>
+
+<figure>
+  <img class="narrow" src="images/07-runtime.png" alt="Motor Run Time card showing 30 days">
+  <figcaption>Figure 5.9 — Motor Run Time over 30 days, split by what started each run.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:28%">Element</th><th>What it shows</th></tr></thead>
+  <tbody>
+    <tr><td><b>Today / 7 days / 30 days</b></td>
+        <td>Choose the period. Everything below updates to match.</td></tr>
+    <tr><td><b>Total run time</b></td>
+        <td>The combined motor run time for the selected period.</td></tr>
+    <tr><td><b>Source breakdown</b></td>
+        <td>The same total split six ways — Mobile app, Web page, Schedule, Municipal water,
+            Tank auto-fill and Physical switch.</td></tr>
+    <tr><td><b>Daily bar chart</b></td>
+        <td>One bar per day, oldest at the left, dated along the bottom. Tap any bar to see
+            that single day broken down by source.</td></tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>The device keeps up to <b>31 days</b> of daily history.</li>
+  <li>Days are split at your local midnight, so the bars line up with real calendar dates.</li>
+  <li>A run that is in progress right now is already counted in the totals.</li>
+</ul>
+
+<div class="note tip"><b>Reading the chart.</b> Steady bars with municipal water dominating is a
+healthy pattern. A sudden climb in "Tank auto-fill" means the tank is emptying faster than
+usual — a running toilet, a dripping tap or a leak. A climb in "Schedule" usually means a
+schedule duration is set longer than it needs to be.</div>
+
+<h2><span class="n">5.10</span> Last &amp; Next Run</h2>
+<div class="purpose"><b>Purpose:</b> answers "why did the motor run?" and "when will it run
+next?" without any digging.</div>
+
+<figure>
+  <img class="mid" src="images/08-lastnext.png" alt="Last and Next Run card">
+  <figcaption>Figure 5.10 — Last &amp; Next Run.</figcaption>
+</figure>
+
+<ul>
+  <li><b>Last started by</b> — which of the six sources started the most recent run.</li>
+  <li><b>Last started at</b> — the date and time it began.</li>
+  <li><b>Next schedule</b> — when the next stored schedule will fire, with repeating schedules
+      already rolled forward.</li>
+</ul>
+
+<h2><span class="n">5.11</span> Municipal Water — Last 10 Sessions</h2>
+<div class="purpose"><b>Purpose:</b> the record of when municipal water actually came, and how
+much of it you got.</div>
+
+<figure>
+  <img class="mid" src="images/09-water.png" alt="Municipal water sessions list">
+  <figcaption>Figure 5.11 — The ten most recent supply sessions, newest first. The top entry is
+    still in progress.</figcaption>
+</figure>
+
+<ul>
+  <li>Each row shows the date and time water arrived, the litres collected, when it stopped,
+      and how long the supply lasted.</li>
+  <li>A session still in progress is marked <b>"still flowing"</b>, and its duration and litres
+      keep climbing while you watch.</li>
+  <li>Scroll within the list to see all ten.</li>
+</ul>
+
+<div class="note tip"><b>Tip.</b> Over a few weeks this list tells you the real pattern of your
+municipal supply — what time it usually arrives and roughly how much it delivers. That is the
+information you need to set a sensible schedule.</div>
+
+<h2><span class="n">5.12</span> Reset History</h2>
+<div class="purpose"><b>Purpose:</b> shows why the device has restarted, which is where most
+diagnosis of an intermittent problem begins.</div>
+
+<figure>
+  <img class="mid" src="images/10-resets.png" alt="Reset History card">
+  <figcaption>Figure 5.12 — Reset History, with lifetime totals across the top.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:26%">Reason shown</th><th>What it means</th></tr></thead>
+  <tbody>
+    <tr><td><b>Power on</b></td><td>Mains power was removed and restored. A normal power cut.</td></tr>
+    <tr><td><b>Software</b></td><td>The device restarted itself deliberately — most often after
+        an update or a settings change that requires a restart.</td></tr>
+    <tr><td><b>Brownout</b></td><td>The supply voltage dipped too low for the device to keep
+        running. Commonly caused by the motor starting on a weak supply.</td></tr>
+    <tr><td><b>Watchdog / Panic</b></td><td>A fault was detected and the device recovered itself
+        automatically. Isolated entries are normal; repeated ones are worth reporting.</td></tr>
+    <tr><td><b>External</b></td><td>A hardware reset, for example the reset button being pressed.</td></tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>The <b>last sixteen</b> restarts are listed, newest first, each dated and timed.</li>
+  <li>The pills across the top are <b>lifetime totals</b> for each cause, which keep counting
+      long after individual entries have scrolled off the list.</li>
+</ul>
+
+<h2><span class="n">5.13</span> Tank Levels</h2>
+<div class="purpose"><b>Purpose:</b> sets the two levels that drive Tank Auto Fill.</div>
+
+<figure>
+  <img class="mid" src="images/11-tanklevels.png" alt="Tank Levels settings card">
+  <figcaption>Figure 5.13 — Tank Levels.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:34%">Setting</th><th style="width:16%">Default</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><b>Start motor at or below</b></td><td>50%</td>
+        <td>The tank counts as low at this level, and the motor starts.</td></tr>
+    <tr><td><b>Stop motor at or above</b></td><td>87%</td>
+        <td>The tank counts as full at this level, and the motor stops. 87% is also the highest
+            value the system will accept.</td></tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><b>Get From Device</b> loads the values currently in use, so you always edit from the
+      truth rather than from a guess.</li>
+  <li><b>Save Tank Levels</b> writes them permanently.</li>
+  <li>The two levels must be at least five percentage points apart.</li>
+</ul>
+
+<div class="note warn"><b>If you try to set the stop level above 87%</b>, the panel explains why
+it cannot: above roughly 88% the water surface is inside the ultrasonic probe's blind zone, so
+the motor would never see the tank reach that figure and would keep running until the tank
+overflowed. Section 4.6 explains how to raise this ceiling properly, by remounting the probe
+higher.</div>
+
+<h2><span class="n">5.14</span> Municipal Water Detection</h2>
+<div class="purpose"><b>Purpose:</b> tunes how sensitive the system is to incoming water.</div>
+
+<figure>
+  <img class="mid" src="images/12-detect.png" alt="Municipal Water Detection settings card">
+  <figcaption>Figure 5.14 — Detection sensitivity.</figcaption>
+</figure>
+
+<ul>
+  <li><b>Flow rate to detect water</b> (default 0.5 L/min) — how much flow counts as water
+      having arrived. Lower is more sensitive.</li>
+  <li><b>Flow rate to cut motor off</b> (default 0.4 L/min) — how little flow counts as the
+      supply having stopped. Keep this below the detection value.</li>
+  <li><b>Volume to confirm supply</b> (default 100 ml) — how much water must actually be
+      collected in a two-minute window before a supply is accepted as genuine.</li>
+  <li><b>Get From Device</b> loads the values in use; <b>Save Sensitivity</b> stores your changes
+      permanently.</li>
+</ul>
+
+<div class="note tip"><b>Adjust only if you have a symptom.</b> Motor starting when no real
+water has arrived → raise the detection rate or the confirmation volume. A genuine weak supply
+being missed → lower the detection rate.</div>
+
+<h2><span class="n">5.15</span> Firmware Slots &amp; Rollback</h2>
+<div class="purpose"><b>Purpose:</b> shows which firmware is running, which is held in reserve,
+and lets you go back one step instantly.</div>
+
+<figure>
+  <img class="mid" src="images/13-slots.png" alt="Firmware Slots and Rollback card">
+  <figcaption>Figure 5.15 — Firmware slots. The running copy on the left, the previous copy held
+    in reserve on the right.</figcaption>
+</figure>
+
+<ul>
+  <li><b>Running now</b> — the firmware the device is using at this moment, with its version
+      number and the date it was built.</li>
+  <li><b>Previous / spare</b> — the copy the last update replaced, still intact in the device.</li>
+  <li><b>Roll Back to Previous Firmware</b> — restores that older copy on the next restart.
+      No download and no internet are needed, because the copy is already there. You are asked
+      to confirm first.</li>
+  <li>The button is disabled when there is no valid previous copy to go back to.</li>
+  <li>Only one step back is kept. The next update overwrites the older copy.</li>
+</ul>
+
+<div class="note info"><b>Automatic safety net.</b> Immediately after an update, the device must
+start up and confirm it is healthy. If it cannot, it reverts to the previous copy by itself —
+you do not have to be there, and you do not have to notice.</div>
+
+<h2><span class="n">5.16</span> Maintenance</h2>
+<div class="purpose"><b>Purpose:</b> download, clear or completely reset the information the
+device has stored.</div>
+
+<figure>
+  <img class="narrow" src="images/14-maint.png" alt="Maintenance card">
+  <figcaption>Figure 5.16 — Maintenance. Each action states exactly what it affects.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th style="width:28%">Action</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><b>Erase Stored Data</b></td>
+        <td>Deletes water sessions, reset history, run-time statistics and the last-run record,
+            and restores detection sensitivity and the buzzer setting to defaults.
+            <b>Schedules and tank levels are kept.</b></td></tr>
+    <tr><td><b>Download Data (.txt)</b></td>
+        <td>Saves the daily run time for every day still held, plus all kept water sessions, as
+            a plain text file on your phone or laptop. Nothing is erased.</td></tr>
+    <tr><td><b>Factory Reset</b></td>
+        <td>Erases everything saved — schedules, modes, water totals and all history — and
+            restarts the device as if brand new. <b>Both firmware copies are kept</b>, so
+            rollback still works afterwards.</td></tr>
+  </tbody>
+</table>
+
+<div class="note warn"><b>Both erase actions ask for confirmation and cannot be undone.</b>
+Download your data first if you want to keep it.</div>
+
+<h2><span class="n">5.17</span> Diagnostics</h2>
+<div class="purpose"><b>Purpose:</b> a running log of what the panel and the device are saying
+to each other — useful when reporting a problem to support.</div>
+
+<figure>
+  <img class="mid" src="images/15-diag.png" alt="Diagnostics card">
+  <figcaption>Figure 5.17 — Diagnostics.</figcaption>
+</figure>
+
+<ul>
+  <li>Shows how the panel is connected to the device.</li>
+  <li>Keeps a timestamped log of recent exchanges, newest at the top.</li>
+  <li>You never need this for normal use — but if you contact support, a photograph of this
+      panel is often the fastest way to get to the answer.</li>
+</ul>
+
+<h2><span class="n">5.18</span> The Tank Buzzer Alarm Banner</h2>
+<div class="purpose"><b>Purpose:</b> tells you the roof buzzer is sounding, and offers the one
+thing anybody wants from a screaming buzzer.</div>
+
+<figure>
+  <img class="wide" src="images/alarm-banner.png" alt="Tank buzzer alarm banner">
+  <figcaption>Figure 5.18 — The alarm banner. It appears only while the Sensor Node's buzzer is
+    actually sounding.</figcaption>
+</figure>
+
+<ul>
+  <li>The banner appears at the very top of the panel, above everything else.</li>
+  <li>It states the current tank level and that it is outside the range the Sensor Node treats
+      as safe.</li>
+  <li>It carries exactly one button: <b>Stop Buzzer</b>.</li>
+  <li>It disappears by itself once the tank level returns to the normal range — and the buzzer
+      re-arms at the same moment, ready for the next alarm.</li>
+</ul>
+</section>
+
+<!-- ======================= 6 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">6.</span> Mobile Application</h1>
+<p class="secintro">The BSR AutoMotor app for Android gives you full visibility and control of
+your system — at home on local Wi-Fi, or from anywhere in the world over mobile data. It covers
+the same core functions as the web panel, plus the remote access that only the cloud connection
+can provide.</p>
+
+<div class="note info"><b>Web panel or app — which should I use?</b> Use the <b>web panel</b>
+when you are at home: it needs no installation, works with no internet, and carries the deeper
+settings and history. Use the <b>app</b> when you are away from home, or when you want push
+notifications. Both talk to the same device and both show the same truth.</div>
+
+<h2><span class="n">6.1</span> Live Dashboard</h2>
+<table>
+  <thead><tr><th style="width:28%">Reading</th><th style="width:24%">Shows</th><th>Why it matters</th></tr></thead>
+  <tbody>
+    <tr><td>Motor status</td><td>ON / OFF</td><td>Know instantly whether the motor is running.</td></tr>
+    <tr><td>Municipal water status</td><td>Flowing / no water</td><td>See whether government water is in your pipe.</td></tr>
+    <tr><td>Water tank level</td><td>0% to 100%</td><td>Know how full the tank is without going to look.</td></tr>
+    <tr><td>Tank Auto Fill mode</td><td>ON / OFF</td><td>See whether automatic filling is active.</td></tr>
+    <tr><td>Auto Start status</td><td>ON / OFF</td><td>See whether automatic start on water arrival is active.</td></tr>
+    <tr><td>Total water pumped</td><td>Litres, current session</td><td>Track how much the latest supply delivered.</td></tr>
+    <tr><td>Temperature</td><td>°C at the controller</td><td>Monitor the motor panel environment.</td></tr>
+    <tr><td>Sensor Node status</td><td>Reading from the tank unit</td><td>Confirm the tank unit is alive and reporting.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">6.2</span> Motor Control</h2>
+<table>
+  <thead><tr><th style="width:22%">Button</th><th style="width:30%">Action</th><th>Possible response</th></tr></thead>
+  <tbody>
+    <tr><td><b>Motor ON</b></td><td>Turns the motor on immediately (Direct Control)</td>
+        <td>Starts — or is blocked, with a message, if Auto Start has already started the motor
+            on incoming municipal water.</td></tr>
+    <tr><td><b>Motor OFF</b></td><td>Turns the motor off and clears all automatic flags</td>
+        <td>Stops. Every automatic mode is reset cleanly.</td></tr>
+    <tr><td><b>Motor Status</b></td><td>Asks the device for its current state</td>
+        <td>ON or OFF confirmation.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">6.3</span> Mode Controls</h2>
+<table>
+  <thead><tr><th style="width:28%">Control</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><b>Water Tank Mode ON</b></td>
+        <td>Enables automatic tank level control. Blocked if the motor is already running under
+            Auto Start or Direct Control.</td></tr>
+    <tr><td><b>Water Tank Mode OFF</b></td>
+        <td>Disables it. Works at any time; the motor stops if it was running because of tank mode.</td></tr>
+    <tr><td><b>Start AutoFill</b></td>
+        <td>The system will now run the motor automatically every time municipal water is detected.</td></tr>
+    <tr><td><b>Stop AutoFill</b></td>
+        <td>Water is still detected and reported, but the motor is not started automatically —
+            useful when you want to skip one particular supply.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">6.4</span> Other App Functions</h2>
+<ul>
+  <li><b>Stop Buzzer</b> — silences the controller's buzzer from your phone. It resumes
+      automatically if the condition that raised it still exists.</li>
+  <li><b>Schedules</b> — set a start time, duration and daily repeat; view all stored schedules;
+      delete them all with one tap. Up to five.</li>
+  <li><b>Set Clock</b> — sets the device's date and time from your phone. Not needed when
+      Remote mode is on, since the clock syncs from the internet automatically.</li>
+  <li><b>Internet (IoT) toggle</b> — turns remote access on or off, exactly as the web panel does.</li>
+  <li><b>Device firmware update</b> — check for a newer version and install it, without touching
+      the device.</li>
+  <li><b>App self-update</b> — the app checks for a newer version of itself and prompts you to
+      install it, so you always have the latest features without visiting a store.</li>
+  <li><b>Ping</b> — a quick check that the device is alive and responding.</li>
+  <li><b>Water status check</b> — confirms whether municipal water is being detected right now.</li>
+</ul>
+
+<div class="note warn"><b>Clock reminder.</b> If the clock has not been set, the app will show
+<i>"Please set the clock"</i> and refuse to accept schedules. Set it once and the hardware clock
+keeps it, even through power cuts.</div>
+</section>
+
+<!-- ======================= 7 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">7.</span> Wi-Fi Extender — Bridging the Distance</h1>
+<p class="secintro"><b>Installed at:</b> roughly midway between the Host Controller at the motor
+and the Sensor Node at the tank.<br>
+<b>Role:</b> repeats the Host Controller's own Wi-Fi network so the Sensor Node stays connected
+even when it is installed a long way away.</p>
+
+<h2><span class="n">7.1</span> Range Extension</h2>
+<div class="purpose"><b>Purpose:</b> solves the single most common installation problem — the
+tank being too far from the motor for a direct Wi-Fi link.</div>
+
+<ul>
+  <li>The Host Controller's local Wi-Fi network covers a limited range, typically 10–20 metres
+      inside a building.</li>
+  <li>If your tank is on a rooftop while the motor is on the ground floor, the direct signal may
+      be too weak to be reliable.</li>
+  <li>A standard household Wi-Fi range extender, placed at the midpoint, bridges the gap.</li>
+  <li>It repeats the controller's network under the same name, and the Sensor Node connects
+      through it without knowing the difference. No configuration is needed in either device.</li>
+</ul>
+
+<div class="note tip"><b>Tip.</b> Any ordinary Wi-Fi repeater will do, configured to repeat the
+Host Controller's network (<b>ESP32-WROOM</b>). No special hardware is required. Place it where
+it still has a strong signal from the controller — a repeater in a weak spot simply repeats a
+weak signal.</div>
+
+<div class="note info"><b>How to tell whether you need one.</b> Open the web panel and look at
+the tank level on the <b>Live Status</b> card. If it regularly says "updated 2 m ago" or worse,
+or drops to "no reading yet", the link is marginal and an extender will fix it.</div>
+</section>
+
+<!-- ======================= 8 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">8.</span> Which Mode to Use &amp; When</h1>
+<p class="secintro">The system has four ways to start the motor. Understanding when each one
+earns its place is how you get the most out of the installation.</p>
+
+<h2><span class="n">8.1</span> Choosing a Mode</h2>
+<table>
+  <thead><tr><th style="width:36%">Your situation</th><th style="width:24%">Recommended</th><th>How to enable it</th></tr></thead>
+  <tbody>
+    <tr><td>Municipal water arrives at unpredictable times and you want the motor to run every
+            time it does</td>
+        <td><b>Municipal Water Auto Start</b></td>
+        <td>Leave the Auto Start tile ON — it is the default. Nothing else to do.</td></tr>
+    <tr><td>You want the tank simply kept full, regardless of when water comes</td>
+        <td><b>Tank Auto Fill</b></td>
+        <td>Tap the Tank Auto Fill tile ON, or flip the rocker switch on the unit.</td></tr>
+    <tr><td>You need the motor running right now — tank cleaning, testing, an emergency</td>
+        <td><b>Direct Motor Control</b></td>
+        <td>Tap the power button on the motor card. Tap it again when you are done.</td></tr>
+    <tr><td>Municipal water arrives at the same time every day</td>
+        <td><b>Schedules</b></td>
+        <td>Set a repeating schedule with the start time and duration.</td></tr>
+    <tr><td>You are going away and want everything handled without you</td>
+        <td><b>Auto Start + Tank Auto Fill together</b></td>
+        <td>Turn both tiles ON. Between them they cover every scenario.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">8.2</span> Mode Priority &amp; Conflict Rules</h2>
+<p>The system has built-in rules so that two modes can never fight over the same motor. Every
+refusal comes with a plain-language explanation on screen.</p>
+
+<table class="wide">
+  <thead><tr><th style="width:34%">Situation</th><th style="width:28%">What happens</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Auto Start has already started the motor on incoming water — you tap Motor ON</td>
+        <td><b>Blocked</b>, with a message</td>
+        <td>The motor is already running because of Auto Start. Starting it again would
+            double-trigger it.</td></tr>
+    <tr><td>Motor is on via Auto Start — you try to enable Tank Auto Fill</td>
+        <td><b>Blocked</b></td>
+        <td>Tank control cannot take over while a municipal water session is running the motor.</td></tr>
+    <tr><td>Motor is on via Direct Control — municipal water arrives</td>
+        <td>Motor <b>stays on</b>; buzzer sounds for a few minutes</td>
+        <td>No conflict — the motor is already doing the right thing. The alert simply tells you
+            water has also come.</td></tr>
+    <tr><td>Motor is on via Direct Control — you try to enable Tank Auto Fill</td>
+        <td><b>Blocked</b></td>
+        <td>Automatic control should not take over while you have deliberately taken manual
+            control.</td></tr>
+    <tr><td>A schedule is due — but Auto Start or Tank Auto Fill is already running the motor</td>
+        <td>The schedule <b>does not activate</b></td>
+        <td>The live session takes priority. The schedule is simply re-evaluated on the next
+            cycle.</td></tr>
+    <tr><td>Tank Auto Fill is running — the Sensor Node stops reporting for 2 minutes</td>
+        <td>Motor <b>OFF</b>; buzzer alert; tank assumed full</td>
+        <td>A safety measure. Never run the motor without tank data — it could overflow the tank.</td></tr>
+    <tr><td>You set a schedule but the clock has never been set</td>
+        <td>Schedule <b>refused</b>, with a "set the clock" message</td>
+        <td>Schedules depend on real time. An unset clock would run the motor at the wrong hour.</td></tr>
+    <tr><td>You turn the motor OFF manually</td>
+        <td>Everything clears</td>
+        <td>Manual off is absolute: Auto Start, Tank Auto Fill and municipal tracking all reset
+            cleanly, so nothing restarts behind your back.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">8.3</span> Three Worked Examples</h2>
+
+<h3>A. A typical city home with an unpredictable supply</h3>
+<ul>
+  <li>Municipal Water Auto Start: <b>ON</b> — catch every supply automatically.</li>
+  <li>Tank Auto Fill: <b>ON</b>, start 50%, stop 87% — top up from the underground sump on the
+      days no municipal water comes.</li>
+  <li>Schedules: none needed.</li>
+  <li>Check the <b>Municipal Water sessions</b> list after a fortnight to learn your real
+      supply pattern.</li>
+</ul>
+
+<h3>B. A supply that arrives at the same time every day</h3>
+<ul>
+  <li>Watch the sessions list for a week to find the real arrival time and typical duration.</li>
+  <li>Set schedule #1 to that time, with a duration slightly longer than a typical session, and
+      <b>Repeat</b> ticked.</li>
+  <li>Keep Auto Start <b>ON</b> as well — it will catch any day the supply comes early or late.</li>
+  <li>Use <b>Last &amp; Next Run</b> to confirm the next fire time is what you expected.</li>
+</ul>
+
+<h3>C. Away from home for two weeks</h3>
+<ul>
+  <li>Turn Remote / IoT mode <b>ON</b> before you leave, and confirm the app connects from
+      mobile data while you are still at home.</li>
+  <li>Auto Start <b>ON</b> and Tank Auto Fill <b>ON</b>.</li>
+  <li>Consider muting the Device Buzzer if the unit is near a neighbour — but remember to
+      un-mute it when you return.</li>
+  <li>On your return, check <b>Motor Run Time</b> over 30 days. An unusual amount of
+      "Tank auto-fill" while the house was empty points to a leak.</li>
+</ul>
+</section>
+
+<!-- ======================= 9 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">9.</span> Alert Reference Guide</h1>
+<p class="secintro">Every alert the system can produce, what it means and what — if anything —
+you should do about it.</p>
+
+<h2><span class="n">9.1</span> Host Controller Buzzer</h2>
+<table>
+  <thead><tr><th style="width:30%">Sound</th><th style="width:32%">What it means</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>One continuous beep at start-up</td><td>The device has powered on and started
+        successfully.</td><td>Nothing. Normal.</td></tr>
+    <tr><td>Long continuous beep during normal running</td>
+        <td>Municipal water arrived while in tank mode, a schedule finished, schedules were
+            deleted, or the Sensor Node has gone quiet.</td>
+        <td>Open the panel or the app to see which. If it is the Sensor Node, see section 10.</td></tr>
+    <tr><td>Rapid short beeps</td><td>The motor has just started because the tank is low.</td>
+        <td>Nothing — this is Tank Auto Fill doing its job.</td></tr>
+    <tr><td>Two beeps, pause, repeating</td><td>Wi-Fi lost, or the signal to your router has
+        become weak.</td>
+        <td>Check your router. The system falls back to local-only operation by itself and keeps
+            automating.</td></tr>
+    <tr><td>Evenly paced on / off beeps</td><td>Municipal water was detected, or the motor was
+        switched on or off by command.</td><td>Nothing. This is a confirmation.</td></tr>
+    <tr><td>Silence</td><td>Everything is normal — or the buzzer has been muted.</td>
+        <td>Check the <b>Device Buzzer</b> tile if you expected a sound and got none.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">9.2</span> Sensor Node Buzzer (at the tank)</h2>
+<table>
+  <thead><tr><th style="width:30%">Sound</th><th style="width:32%">What it means</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Short beep every second</td><td>Tank level has fallen below 20%.</td>
+        <td>Check that the motor can run — supply available, Tank Auto Fill on.</td></tr>
+    <tr><td>Long beep every second</td><td>Tank level has risen above 88%.</td>
+        <td>The motor should be stopping. If it is not, stop it from the panel and check the
+            stop level setting.</td></tr>
+    <tr><td>Two short beeps</td><td>The Sensor Node has just started up and connected.</td>
+        <td>Nothing. Normal.</td></tr>
+  </tbody>
+</table>
+
+<div class="note tip"><b>Silencing either buzzer.</b> The controller's buzzer is silenced with
+<b>Stop Buzzer</b>; the tank buzzer with <b>Stop Tank Buzzer</b> or the red alarm banner. Both
+re-arm themselves — see sections 2.11 and 2.12.</div>
+
+<h2><span class="n">9.3</span> On-Screen Messages</h2>
+<table>
+  <thead><tr><th style="width:40%">Message</th><th>Meaning and action</th></tr></thead>
+  <tbody>
+    <tr><td><b>"Please set the clock"</b></td>
+        <td>Schedules cannot be accepted until the device knows the real time. Use
+            <b>Config Clock</b>, or turn Remote mode on and let it sync from the internet.</td></tr>
+    <tr><td><b>Motor ON blocked</b></td>
+        <td>Auto Start has already started the motor on incoming municipal water. Nothing is
+            wrong — the motor is already running.</td></tr>
+    <tr><td><b>Tank mode blocked</b></td>
+        <td>The motor is already running under Auto Start or Direct Control. Stop it first if
+            you really want tank control to take over.</td></tr>
+    <tr><td><b>"no reading yet" / an old tank reading age</b></td>
+        <td>The Sensor Node is not reaching the controller. See section 10.</td></tr>
+    <tr><td><b>Stop level above 87% refused</b></td>
+        <td>Above that the probe cannot see the water. Section 4.6 explains the proper fix.</td></tr>
+    <tr><td><b>"Device Not Connected" in the header</b></td>
+        <td>Your phone or laptop has lost the link to the controller. Check you are still on the
+            right Wi-Fi network.</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ======================= 10 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">10.</span> Troubleshooting</h1>
+<p class="secintro">The problems people actually run into, and what fixes them — in the order
+worth trying.</p>
+
+<h2><span class="n">10.1</span> Tank Level</h2>
+<table class="wide">
+  <thead><tr><th style="width:28%">Symptom</th><th style="width:30%">Most likely cause</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Tank level shows "no reading yet"</td><td>The Sensor Node is not reporting.</td>
+        <td>Check the node has power. Check its LED: lit means Wi-Fi is down. If the tank is far
+            from the motor, fit a Wi-Fi extender (section 7).</td></tr>
+    <tr><td>Tank reading is minutes old</td><td>A marginal Wi-Fi link.</td>
+        <td>Move or add an extender. Confirm the node is within reach of the network.</td></tr>
+    <tr><td>Level sticks near the top and never reaches the stop value</td>
+        <td>The water surface is inside the probe's blind zone.</td>
+        <td>This is a mounting matter, not a fault. Lower the stop level, or remount the probe
+            higher — section 4.6.</td></tr>
+    <tr><td>Level jumps around</td><td>Reflections off the tank wall, or a tilted probe.</td>
+        <td>Mount the probe level, pointing straight down, away from the wall and away from the
+            inlet splash.</td></tr>
+    <tr><td>Motor stops as soon as tank mode is turned on</td>
+        <td>The tank is already above the stop level, or the node is silent so the tank is
+            assumed full.</td>
+        <td>Check the live level and its age on the panel.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">10.2</span> Municipal Water Detection</h2>
+<table class="wide">
+  <thead><tr><th style="width:28%">Symptom</th><th style="width:30%">Most likely cause</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Motor starts when no real supply has arrived</td>
+        <td>Detection is too sensitive for your line.</td>
+        <td>Raise <b>Flow rate to detect water</b>, or raise <b>Volume to confirm supply</b> —
+            section 5.14.</td></tr>
+    <tr><td>A genuine supply is missed</td><td>Detection is not sensitive enough for a weak
+        supply.</td><td>Lower <b>Flow rate to detect water</b>.</td></tr>
+    <tr><td>Motor stops and restarts repeatedly during a supply</td>
+        <td>The cut-off rate is too close to the detection rate.</td>
+        <td>Widen the gap: lower the cut-off value.</td></tr>
+    <tr><td>Litre count looks wrong</td><td>The flow sensor is partly blocked or misfitted.</td>
+        <td>Have the sensor inspected. It must be fitted the right way round, in a full pipe.</td></tr>
+    <tr><td>Very short sessions clutter the log</td><td>They do not — very short bursts are
+        ignored by design.</td><td>Nothing to do.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">10.3</span> Motor and Schedules</h2>
+<table class="wide">
+  <thead><tr><th style="width:28%">Symptom</th><th style="width:30%">Most likely cause</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Motor will not start from the panel</td><td>A mode conflict.</td>
+        <td>Read the message under the button, then see section 8.2.</td></tr>
+    <tr><td>Schedule did not run</td><td>Clock unset, or another mode had the motor.</td>
+        <td>Set the clock; check <b>Last &amp; Next Run</b> to see what the device thinks is due.</td></tr>
+    <tr><td>Motor runs longer than the schedule duration</td>
+        <td>Another mode took over during the run — for example municipal water arrived.</td>
+        <td>Check the run-time breakdown for that day (section 5.9) to see which source is
+            credited.</td></tr>
+    <tr><td>Motor restarted by itself after a power cut</td><td>Working as designed.</td>
+        <td>The motor state is restored deliberately, so an interrupted fill continues.</td></tr>
+    <tr><td>Run time looks far too high</td><td>Usually a leak or a tap left open.</td>
+        <td>Look at which source is climbing. "Tank auto-fill" rising means the tank is emptying
+            faster than it should.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">10.4</span> Connectivity, Power and Updates</h2>
+<table class="wide">
+  <thead><tr><th style="width:28%">Symptom</th><th style="width:30%">Most likely cause</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Web panel will not load</td><td>Phone is on the wrong Wi-Fi network.</td>
+        <td>Reconnect to <b>ESP32-WROOM</b> and reload <b>http://192.168.4.1</b></td></tr>
+    <tr><td>Header shows the device is not connected</td><td>The link dropped.</td>
+        <td>Wait a few seconds — the panel retries by itself. If it persists, reconnect to the
+            network.</td></tr>
+    <tr><td>App works at home but not away</td><td>Remote / IoT mode is off.</td>
+        <td>Turn it on from the panel or the app while you are still at home, and confirm remote
+            access works before you leave.</td></tr>
+    <tr><td>Repeated "Brownout" entries in Reset History</td>
+        <td>Supply voltage is dipping, usually as the motor starts.</td>
+        <td>Have an electrician check the supply and wiring at the device.</td></tr>
+    <tr><td>Cloud update says no newer version</td><td>You are already up to date.</td>
+        <td>Nothing to do. Check the running version under <b>Firmware Slots</b>.</td></tr>
+    <tr><td>Something looks wrong immediately after an update</td><td>—</td>
+        <td>Use <b>Roll Back to Previous Firmware</b> (section 5.15) and report what you saw.</td></tr>
+    <tr><td>Buzzer never sounds</td><td>The Device Buzzer tile is muted.</td>
+        <td>Tap the tile to un-mute. The setting survives power cuts, so it stays muted until
+            you change it.</td></tr>
+  </tbody>
+</table>
+
+<div class="note info"><b>Before contacting support</b>, open the web panel and note: the
+firmware version under <b>Firmware Slots</b>, the most recent entries in <b>Reset History</b>,
+and a photograph of the <b>Diagnostics</b> panel. Those three almost always identify the problem
+straight away.</div>
+</section>
+
+<!-- ======================= 11 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">11.</span> Complete Feature Checklist</h1>
+<p class="secintro">Everything the current BSR AutoMotor System does, in one list.</p>
+
+<h2><span class="n">11.1</span> Host Controller</h2>
+<ul class="checklist">
+  <li>Municipal water auto start on incoming flow</li>
+  <li>Adjustable detection rate, cut-off rate and confirmation volume</li>
+  <li>3-minute minimum run time to prevent false stops</li>
+  <li>Tank auto fill with anti-chatter hysteresis</li>
+  <li>Adjustable tank start and stop levels</li>
+  <li>Stop-level safety cap matched to the probe's real range</li>
+  <li>Direct motor control, on and off</li>
+  <li>Up to five daily schedules, each repeating or one-shot</li>
+  <li>Automatic roll-forward of passed and repeating schedules</li>
+  <li>Next-schedule preview</li>
+  <li>Litre-accurate water quantity measurement</li>
+  <li>Last ten municipal water sessions logged with litres and duration</li>
+  <li>Live session marked and updated in real time</li>
+  <li>Short-burst filtering so the log stays meaningful</li>
+  <li>In-progress sessions checkpointed against power cuts</li>
+  <li>31 days of daily motor run time</li>
+  <li>Run time split six ways by what started the motor</li>
+  <li>Daily bar chart with per-day breakdown</li>
+  <li>Local-midnight day boundaries</li>
+  <li>Last-run source and time record</li>
+  <li>Four-pattern buzzer alert system</li>
+  <li>Buzzer mute and temporary silence</li>
+  <li>Remote silence of the tank buzzer, with automatic re-arm</li>
+  <li>Battery-backed real-time clock</li>
+  <li>Automatic internet time synchronisation</li>
+  <li>Manual clock setting from panel or app</li>
+  <li>Ambient temperature measurement</li>
+  <li>Always-on local Wi-Fi network</li>
+  <li>Simultaneous router connection when remote mode is on</li>
+  <li>Signal strength monitoring with automatic fallback</li>
+  <li>Automatic reconnection and recovery</li>
+  <li>Secure cloud sync for remote monitoring and control</li>
+  <li>Built-in web control panel served to any browser</li>
+  <li>Cloud firmware update</li>
+  <li>Local firmware upload over Wi-Fi</li>
+  <li>Remotely triggered firmware update</li>
+  <li>Two firmware copies with one-tap rollback</li>
+  <li>Automatic revert if an update fails to come up</li>
+  <li>Permanent, power-cut-safe settings memory</li>
+  <li>Restart cause recording, last 16 plus lifetime totals</li>
+  <li>Device uptime and restart counters</li>
+  <li>Data download as a plain text file</li>
+  <li>Selective data erase that keeps your settings</li>
+  <li>Full factory reset that keeps both firmware copies</li>
+  <li>Physical tank-mode rocker switch</li>
+  <li>Confirmation prompts on every destructive action</li>
+</ul>
+
+<h2><span class="n">11.2</span> Sensor Node</h2>
+<ul class="checklist">
+  <li>Waterproof ultrasonic level measurement</li>
+  <li>Five-sample median filtering per reading</li>
+  <li>Configurable tank depth and probe offset</li>
+  <li>Invalid-echo detection and held-reading flagging</li>
+  <li>Reporting every five seconds</li>
+  <li>Low-level and high-level local buzzer alarms</li>
+  <li>Remote buzzer silence honoured within one cycle</li>
+  <li>Automatic buzzer re-arm if the controller goes quiet</li>
+  <li>Long-range Wi-Fi configuration</li>
+  <li>Automatic reconnection</li>
+  <li>LED status and transmission indication</li>
+  <li>Five-minute wireless update window after each restart</li>
+</ul>
+
+<h2><span class="n">11.3</span> Web Control Panel</h2>
+<ul class="checklist">
+  <li>No installation, no account, no internet required</li>
+  <li>Phone-first single-screen motor control</li>
+  <li>Animated live motor state</li>
+  <li>One-tap mode tiles for auto start, tank fill and buzzer</li>
+  <li>Live status with reading-age display</li>
+  <li>Collapsible sections and expand-all</li>
+  <li>Schedule editor with load and save</li>
+  <li>Tank level and detection sensitivity settings</li>
+  <li>Run-time chart with tap-to-inspect days</li>
+  <li>Water session and reset history lists</li>
+  <li>Firmware slot display and rollback</li>
+  <li>Cloud update and local file upload with progress</li>
+  <li>Data download, erase and factory reset</li>
+  <li>Tank alarm banner with one-tap silence</li>
+  <li>Audible municipal-water arrival alert in the browser</li>
+  <li>Diagnostics log for support</li>
+  <li>Confirmation prompts before anything irreversible</li>
+</ul>
+
+<h2><span class="n">11.4</span> Mobile Application</h2>
+<ul class="checklist">
+  <li>Live dashboard of every reading</li>
+  <li>Motor on / off from anywhere</li>
+  <li>Tank auto fill and auto start toggles</li>
+  <li>Schedule set, view and delete</li>
+  <li>Buzzer silence</li>
+  <li>Clock setting</li>
+  <li>Remote / IoT toggle</li>
+  <li>Device firmware update</li>
+  <li>App self-update</li>
+  <li>Ping and water status checks</li>
+  <li>Works on home Wi-Fi and on mobile data worldwide</li>
+</ul>
+</section>
+
+<!-- ======================= 12 ======================= -->
+<section class="pagebreak">
+<h1 class="sec"><span class="num">12.</span> Quick Start — Five Steps</h1>
+<p class="secintro">From an installed system to full automation, in about ten minutes.</p>
+
+<h2><span class="n">Step 1</span> — Install the Hardware</h2>
+<ul>
+  <li>Mount the <b>Host Controller</b> near the motor or the electrical panel and connect the
+      motor through it.</li>
+  <li>Fit the <b>flow sensor</b> in the pipe between the municipal supply and the motor, the
+      right way round.</li>
+  <li>Mount the <b>Sensor Node</b> above the tank, pointing straight down, ideally at least
+      25 cm above the full mark (section 4.6).</li>
+  <li>If the tank is far from the motor, place a <b>Wi-Fi extender</b> midway between them.</li>
+  <li>Power everything up. The controller gives one long beep; the Sensor Node gives two short
+      ones once it has connected.</li>
+</ul>
+
+<h2><span class="n">Step 2</span> — Connect Your Phone</h2>
+<ul>
+  <li>In Wi-Fi settings, join the network named <b>ESP32-WROOM</b> using the password supplied
+      with your installation.</li>
+  <li>Open a browser and go to <b>http://192.168.4.1</b></li>
+  <li>Tap the notice at the top once, to allow the page to play the water-arrival alert sound.</li>
+  <li>Confirm the header shows <b>Device Connected</b>.</li>
+</ul>
+
+<h2><span class="n">Step 3</span> — Set the Clock</h2>
+<ul>
+  <li>Open <b>Controls</b> and tap <b>Config Clock</b>.</li>
+  <li>Enter the current date and time and confirm.</li>
+  <li>Alternatively, turn on Remote / IoT mode (step 5) and let the device sync from the
+      internet automatically.</li>
+</ul>
+<div class="note warn">Schedules will not be accepted until this is done.</div>
+
+<h2><span class="n">Step 4</span> — Choose Your Mode</h2>
+<ul>
+  <li>For most homes, leave <b>Municipal Water Auto Start</b> ON and turn <b>Tank Auto Fill</b>
+      ON as well.</li>
+  <li>Open <b>Tank Levels</b>, tap <b>Get From Device</b>, and adjust the start and stop levels
+      if the defaults of 50% and 87% do not suit your tank.</li>
+  <li>If your supply arrives at a fixed time, add a repeating schedule under <b>Schedules</b>
+      and tap <b>Save All</b>.</li>
+</ul>
+
+<h2><span class="n">Step 5</span> — Enable Internet (Optional but Recommended)</h2>
+<ul>
+  <li>Open <b>Remote / IoT Mode</b> and switch it on. The panel may drop for a few seconds
+      while the device changes Wi-Fi mode — this is normal.</li>
+  <li>Install the mobile app and sign in.</li>
+  <li><b>Test remote access before you need it:</b> turn Wi-Fi off on your phone, and confirm
+      the app still reads your device over mobile data.</li>
+</ul>
+
+<h2><span class="n">Step 6</span> — After a Week, Look at the Data</h2>
+<ul>
+  <li><b>Municipal Water sessions</b> tells you when your supply really arrives and how much
+      it delivers.</li>
+  <li><b>Motor Run Time</b> over 7 days tells you what is actually driving your motor.</li>
+  <li>Use both to fine-tune your schedules and your tank levels. That is where a good
+      installation becomes a very good one.</li>
+</ul>
+
+<!-- ======================= 13 ======================= -->
+<h1 class="sec pagebreak" style="margin-top:0"><span class="num">13.</span> Specifications, Care &amp; Safety</h1>
+
+<h2><span class="n">13.1</span> System Summary</h2>
+<table>
+  <thead><tr><th style="width:34%">Item</th><th>Detail</th></tr></thead>
+  <tbody>
+    <tr><td>Tank level reporting interval</td><td>Every 5 seconds</td></tr>
+    <tr><td>Tank reading method</td><td>Ultrasonic, median of 5 samples per cycle</td></tr>
+    <tr><td>Default tank start / stop levels</td><td>50% / 87% (both adjustable)</td></tr>
+    <tr><td>Maximum permitted stop level</td><td>87%</td></tr>
+    <tr><td>Tank alarm band at the Sensor Node</td><td>Below 20%, above 88%</td></tr>
+    <tr><td>Sensor Node timeout safety cut-off</td><td>2 minutes without a reading</td></tr>
+    <tr><td>Default water detection rate</td><td>0.5 litres/minute (adjustable)</td></tr>
+    <tr><td>Default cut-off rate</td><td>0.4 litres/minute (adjustable)</td></tr>
+    <tr><td>Default confirmation volume</td><td>100 ml within a 2-minute window (adjustable)</td></tr>
+    <tr><td>Minimum motor run time on auto start</td><td>3 minutes</td></tr>
+    <tr><td>Schedules</td><td>Up to 5, each repeating daily or one-shot</td></tr>
+    <tr><td>Water session history</td><td>Last 10 sessions</td></tr>
+    <tr><td>Motor run-time history</td><td>31 days, split by 6 trigger sources</td></tr>
+    <tr><td>Restart history</td><td>Last 16 restarts, plus lifetime totals per cause</td></tr>
+    <tr><td>Firmware copies held</td><td>2 (running plus one step back)</td></tr>
+    <tr><td>Temperature measurement</td><td>Accurate to about 0.25 °C</td></tr>
+    <tr><td>Local network name</td><td>ESP32-WROOM</td></tr>
+    <tr><td>Local control panel address</td><td>http://192.168.4.1</td></tr>
+    <tr><td>Typical local Wi-Fi range</td><td>10–20 m indoors, extendable with a repeater</td></tr>
+    <tr><td>Mobile app platform</td><td>Android</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">13.2</span> Routine Care</h2>
+<ul>
+  <li><b>Every month</b> — glance at Motor Run Time. A change in the pattern is usually the
+      first sign of a leak or a failing float.</li>
+  <li><b>Every three months</b> — check the ultrasonic probe is still clean, level and
+      unobstructed. Dust, cobwebs and nests all affect readings.</li>
+  <li><b>Every three months</b> — check the Reset History for brownouts.</li>
+  <li><b>Every six months</b> — have the flow sensor inspected for scale or debris.</li>
+  <li><b>Before travelling</b> — confirm remote access works over mobile data while you are
+      still at home.</li>
+  <li><b>When a firmware update is offered</b> — install it. Updates carry both fixes and new
+      features, and rollback is always available if anything looks wrong.</li>
+</ul>
+
+<h2><span class="n">13.3</span> Safety</h2>
+<div class="note warn"><b>Electrical work must be done by a qualified electrician.</b> The Host
+Controller switches mains-powered motor equipment. Installation, wiring and any later change to
+the motor circuit are jobs for a licensed professional, in line with local regulations.</div>
+
+<ul>
+  <li><b>Always isolate the supply</b> at the mains before opening any enclosure or working on
+      the motor.</li>
+  <li><b>The motor can start without warning.</b> That is the entire point of the product.
+      Never assume a stopped motor will stay stopped — isolate the supply before any mechanical
+      work on the pump, the pipework or the tank.</li>
+  <li><b>Keep the enclosure closed and dry.</b> The Host Controller is not designed for direct
+      exposure to water or weather.</li>
+  <li><b>Protect against dry running.</b> This system controls when the motor runs, but it is
+      not a substitute for the dry-run protection your pump itself should have.</li>
+  <li><b>Mount the Sensor Node securely.</b> A probe that falls into the tank stops measuring
+      and contaminates your water.</li>
+  <li><b>Do not modify the device</b> or install firmware from any source other than BSR.</li>
+  <li><b>Supervise tank access.</b> Open water tanks are a drowning hazard, particularly to
+      children.</li>
+</ul>
+
+<h2><span class="n">13.4</span> What the System Does Not Do</h2>
+<p>Stated plainly, so expectations are right from day one:</p>
+<ul>
+  <li>It does not measure water quality — only quantity and level.</li>
+  <li>It cannot measure the very top of the tank unless the probe is mounted high enough
+      (section 4.6).</li>
+  <li>It cannot create water pressure. If your supply is weak, the system will detect and
+      report that, but it cannot fix it.</li>
+  <li>It does not replace your pump's own overload or dry-run protection.</li>
+  <li>It will not run the motor during a mains power cut. When power returns, it restores
+      exactly the state it was in.</li>
+</ul>
+
+<!-- ======================= 14 ======================= -->
+<h1 class="sec pagebreak" style="margin-top:0"><span class="num">14.</span> Glossary</h1>
+<table>
+  <thead><tr><th style="width:28%">Term</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><b>Auto Start / AutoFill</b></td><td>The mode that starts the motor automatically
+        when municipal water is detected in the supply pipe.</td></tr>
+    <tr><td><b>Tank Auto Fill</b></td><td>The mode that starts and stops the motor based on how
+        full the tank is.</td></tr>
+    <tr><td><b>Direct Motor Control</b></td><td>Turning the motor on or off yourself, overriding
+        the automatic modes.</td></tr>
+    <tr><td><b>Hysteresis / dead band</b></td><td>The deliberate gap between the level that
+        starts the motor and the level that stops it, which prevents rapid on-off switching.</td></tr>
+    <tr><td><b>Blind zone</b></td><td>The minimum distance an ultrasonic probe can measure.
+        Anything closer than that returns no usable reading.</td></tr>
+    <tr><td><b>Median filtering</b></td><td>Taking several readings and using the middle value,
+        which discards occasional wild results.</td></tr>
+    <tr><td><b>Flow rate</b></td><td>How fast water is moving through the pipe, in litres per
+        minute.</td></tr>
+    <tr><td><b>Session</b></td><td>One continuous municipal water supply, from the moment it is
+        detected to the moment it stops.</td></tr>
+    <tr><td><b>Trigger source</b></td><td>What caused the motor to start: mobile app, web page,
+        schedule, municipal water, tank auto-fill or the physical switch.</td></tr>
+    <tr><td><b>Firmware</b></td><td>The software running inside the device itself.</td></tr>
+    <tr><td><b>Firmware slot</b></td><td>One of the two places in the device where a firmware
+        copy is kept.</td></tr>
+    <tr><td><b>Rollback</b></td><td>Restoring the previous firmware copy.</td></tr>
+    <tr><td><b>OTA</b></td><td>"Over the air" — updating the device wirelessly, with no cable and
+        no physical access.</td></tr>
+    <tr><td><b>Brownout</b></td><td>A dip in supply voltage severe enough to restart the device.</td></tr>
+    <tr><td><b>Uptime</b></td><td>How long the device has been running since its last restart.</td></tr>
+    <tr><td><b>Local Wi-Fi network</b></td><td>The network the Host Controller creates itself.
+        It exists whether or not you have internet.</td></tr>
+    <tr><td><b>Remote / IoT mode</b></td><td>The setting that connects the device to your router
+        and the cloud, enabling control from outside your home.</td></tr>
+    <tr><td><b>Wi-Fi extender / repeater</b></td><td>A device that rebroadcasts a Wi-Fi network
+        to cover a greater distance.</td></tr>
+  </tbody>
+</table>
+
+<div class="enddash">
+  <b>BSR AutoMotor System</b> — Smart Home Water Motor Automation<br>
+  User Manual &amp; Feature Guide · Edition 2 · September 2026<br>
+  © BSR AutoMotor System — All Rights Reserved
+</div>
+</section>
+
+</body>
+</html>
